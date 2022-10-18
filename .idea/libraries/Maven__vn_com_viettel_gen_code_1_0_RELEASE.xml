@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: vn.com.viettel:gen-code:1.0-RELEASE">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/vn/com/viettel/gen-code/1.0-RELEASE/gen-code-1.0-RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/vn/com/viettel/gen-code/1.0-RELEASE/gen-code-1.0-RELEASE-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/vn/com/viettel/gen-code/1.0-RELEASE/gen-code-1.0-RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
