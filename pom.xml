@@ -59,13 +59,21 @@
             <scope>runtime</scope>
         </dependency>
     </dependencies>
-
+    <repositories>
+        <repository>
+            <id>maven-public</id>
+            <name>Internal Public</name>
+            <!--suppress UnresolvedMavenProperty -->
+            <url>http://10.254.144.164:8081/repository/maven-public/</url>
+        </repository>
+    </repositories>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
         </plugins>
     </build>
 
