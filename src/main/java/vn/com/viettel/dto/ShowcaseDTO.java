@@ -2,6 +2,7 @@ package vn.com.viettel.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data

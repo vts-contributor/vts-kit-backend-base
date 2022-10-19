@@ -1,5 +1,7 @@
 package vn.com.viettel.utils.validates;
 
+import vn.com.viettel.core.config.I18n;
+
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
@@ -11,7 +13,8 @@ import java.lang.annotation.*;
         validatedBy = EmailFormatValidator.class
 )
 public @interface EmailFormat {
-    String message() default "Địa chỉ Email không hợp lệ";
+
+    String message() default "Email is not valid!";
 
     Class<?>[] groups() default {};
 
