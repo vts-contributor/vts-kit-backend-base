@@ -13,44 +13,46 @@ Package vn.com.viettel.utils:          Nơi chứa các hàm common và contants
 ```
 ## 2. Cách đặt tên các đầu API theo chuẩn restful naming. Tham khảo thêm https://restfulapi.net/resource-naming/
 ```
-Ví dụ cụ thể viết api cho form quản lý KH
-1. Thêm mới một khách hàng
-   Method POST
-   Naming api : $HOST/api/v1/customers
+Ví dụ cụ thể viết api cho form quản lý KH:  
+1. Thêm mới một khách hàng  
+   Method POST  
+   Naming api : $HOST/api/v1/customers  
 
-2. Tìm kiếm thông tin khách hàng
-   Method GET
-   Naming api : $HOST/api/v1/customers
+2. Tìm kiếm thông tin khách hàng  
+   Method GET  
+   Naming api : $HOST/api/v1/customers  
 
-3. Lấy thông tin chi tiết một khách hàng theo customerId trong đó customerId là ID của KH trong bảng Customer
-   Method GET
-   Naming api: $HOST/api/v1/customers/{customerId}
+3. Lấy thông tin chi tiết một khách hàng theo customerId trong đó customerId là ID của KH trong bảng Customer  
+   Method GET  
+   Naming api: $HOST/api/v1/customers/{customerId} 
 
-4. Cập nhật thông tin cho một khách hàng theo customerId
-   Method PUT
-   Naming api: $HOST/api/v1/customers/{customerId}
+4. Cập nhật thông tin cho một khách hàng theo customerId  
+   Method PUT  
+   Naming api: $HOST/api/v1/customers/{customerId}  
 
-5. Xóa thông tin một khách hàng theo customerId
-   Method DELETE
-   Naming api: $HOST/api/v1/customers/{customerId}
+5. Xóa thông tin một khách hàng theo customerId 
+   Method DELETE  
+   Naming api: $HOST/api/v1/customers/{customerId}  
 ```
 ## 3. Cách comment commit theo https://www.conventionalcommits.org/en/v1.0.0/
 
 Mục đích: sau khi xóa nhánh phát triển, fix lỗi logs vẫn còn, và có thể thực hiện các chức năng mở rộng theo định đang đầu logs, ngoài ra còn hỗ trợ tìm kiếm nhanh.
 Cấu trúc:
-<type>[scope]: <description>
-[optional body]
--	type: Sử dụng các từ khóa sau để mô tả nội dung làm.
-   feat: thêm một feature
-   fix: fix bug cho hệ thống, vá lỗi trong codebase
-   refactor: sửa code nhưng không fix bug cũng không thêm feature hoặc đôi khi bug cũng được fix từ việc refactor.
-   docs: thêm/thay đổi document
-   chore: những sửa đổi nhỏ nhặt không liên quan tới code
-   style: những thay đổi không làm thay đổi ý nghĩa của code như thay đổi css/ui chẳng hạn.
-   perf: code cải tiến về mặt hiệu năng xử lý
-   vendor: cập nhật version cho các dependencies, packages.
--	description: là mô tả ngắn về những gì sẽ bị sửa đổi trong commit đấy
--	body: là mô tả dài và chi tiết hơn, cần thiết khi description chưa thể nói rõ hết được, có thể thêm phần ghi chú bằng các keyword
+```  
+<type>[scope]: <description>  
+[optional body] 
+``` 
+- **type**: Sử dụng các từ khóa sau để mô tả nội dung làm:
+    - feat: thêm một feature
+    - fix: fix bug cho hệ thống, vá lỗi trong codebase
+    - refactor: sửa code nhưng không fix bug cũng không thêm feature hoặc đôi khi bug cũng được fix từ việc refactor.
+    - docs: thêm/thay đổi document
+    - chore: những sửa đổi nhỏ nhặt không liên quan tới code
+    - style: những thay đổi không làm thay đổi ý nghĩa của code như thay đổi css/ui chẳng hạn.
+    - perf: code cải tiến về mặt hiệu năng xử lý
+    - vendor: cập nhật version cho các dependencies, packages.
+-	**description**: là mô tả ngắn về những gì sẽ bị sửa đổi trong commit đấy
+-	**body**: là mô tả dài và chi tiết hơn, cần thiết khi description chưa thể nói rõ hết được, có thể thêm phần ghi chú bằng các keyword
  
 ## 4. Cách đặt tên nhánh
 
@@ -70,45 +72,45 @@ Tất cả các thay đổi mới nhất sẽ được push/merge lên nhánh de
 Sau đó được merge vào nhánh develop khi đã sẵn sàng để test phục vụ tích hợp CI/CD trên môi trường phát triển  
 
 ### 4.4 Hotfix branches:
- Checkout từ: master
- Merge vào: develop và master
- Đặt tên: hotfix/[chức năng hotfix] ví dụ: hotfix/opt-error
-Khi có một bug nghiêm trọng trên bản production cần được giải quyết ngay lập tức, một hotfix branch sẽ được tách ra từ master
-Sau đó merge vào lại cả master và develop để ngăn lỗi xảy ra ở những lần release sau.
+- Checkout từ: master
+- Merge vào: develop và master
+- Đặt tên: hotfix/[chức năng hotfix] ví dụ: hotfix/opt-error
+- Khi có một bug nghiêm trọng trên bản production cần được giải quyết ngay lập tức, một hotfix branch sẽ được tách ra từ master, sau đó merge vào lại cả master và develop để ngăn lỗi xảy ra ở những lần release sau.
 
 # II. Hướng dẫn lập trình và sử dụng gen code và các hàm có sẵn
 
 ## 1. Import libs
-Thực hiện copy thư mục "vn" ở trong thư mục Libs vào MAVEN\Repository
+Thực hiện copy thư mục "vn" ở trong thư mục Libs vào MAVEN\Repository  
 
 
 ## 2. Thực hiện gen code
 
-File config.properties dùng để cấu hình gen code  
-Cấu hình database để gen code, thay đổi thông tin database tương ứng cho ứng dụng đang code
+File config.properties dùng để cấu hình gen code:  
+Cấu hình database để gen code, thay đổi thông tin database tương ứng cho ứng dụng đang code:  
 
    ```
    spring.datasource.url=jdbc:oracle:thin:@10.60.157.9:1521:dbpt
    spring.datasource.username=app
    spring.datasource.password=app#123
    ```
-   Cấu hình đường dẫn thư mục code được gen ra
+Cấu hình đường dẫn thư mục code được gen ra:  
    ```
    src.url.create.code
    ```
-   
-    Định nghĩa class và các phương thức cần gen trong file template.json
-    Trong đó:
-        className: Là tên của class muốn tạo 
-        desc: Mô tả chi tiết thông tin về class muốn tạo, class thực hiện cho chức năng nghiệp vụ gì
-        listMethod: Danh sách Method trong class cần tạo
-            "type":"post": Loại request method ("get", "post", "put", "delete")
-            "name": Tên phương thức định nghĩa
-            "value":"/customers/{customerId}/contracts": Thông tin về URI API
-            "sql": Định nghĩa SQL lấy dữ liệu (nếu có), các tham số cần truyền vào viết theo ":TEN_PARAM_1", các biến này có thể truyền từ Client để lấy dữ liệu
-            "count": Set giá trị là 1 để trả về list data and count. Nếu không set mặc định chỉ trả về list data
-            "params": Khai báo các tham số truyền vào từ client
-    Ví dụ
+
+Định nghĩa class và các phương thức cần gen trong file template.json  
+Trong đó:  
+- **className**: Là tên của class muốn tạo 
+- **desc**: Mô tả chi tiết thông tin về class muốn tạo, class thực hiện cho chức năng nghiệp vụ gì
+- **listMethod**: Danh sách Method trong class cần tạo  
+    - **"type"**: Loại request method ("get", "post", "put", "delete")  
+    - **"name"**: Tên phương thức định nghĩa  
+    - **"value"**: "/customers/{customerId}/contracts": Thông tin về URI API  
+    - **"sql"**: Định nghĩa SQL lấy dữ liệu (nếu có), các tham số cần truyền vào viết theo ":TEN_PARAM_1", các biến này có thể truyền từ Client để lấy dữ liệu  
+    - **"count"**: Set giá trị là 1 để trả về list data and count. Nếu không set mặc định chỉ trả về list data  
+    - **"params"**: Khai báo các tham số truyền vào từ client  
+
+**Ví dụ**:
    ```
    {
        "className": "Employees",
@@ -147,7 +149,7 @@ Trong đó /api/v1/public/config và các api có prefix /api/v1/public/config l
 
 ## 6.Thực hiện ký chứng thư số từ USB gồm 3 bước
 ### 6.1 Bước 1: Khai các mã lỗi, hàm common và lib
-- Khai báo Constants trong class vn.com.viettel.utils.Constants  
+- Khai báo Constants trong class `vn.com.viettel.utils.Constants`  
 ```    
     public interface SIGN_CODE {
         Integer SUCCESS = 1;        //Thành công
@@ -155,7 +157,7 @@ Trong đó /api/v1/public/config và các api có prefix /api/v1/public/config l
         Integer NOT_FOUND = 3;      //Lỗi cert không tồn tại
     }
 ```
-- Khai báo hàm Common trong class vn.com.viettel.utils.Utils
+- Khai báo hàm Common trong class `vn.com.viettel.utils.Utils`
 ```
         /**
          * loai bo gio trong date
