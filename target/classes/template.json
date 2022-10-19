@@ -1,0 +1,14 @@
+{
+  "className": "Employees",
+  "desc": "Lớp thao tác danh sach nhan vien",
+  "listMethod": [
+    {
+      "type": "get",
+      "name": "getEmployees",
+      "value": "/v1/employees",
+      "sql": "select * from EMPLOYEES",
+      "desc": "Lay du thong tin nhan vien",
+      "count": 1
+    }
+  ]
+}
