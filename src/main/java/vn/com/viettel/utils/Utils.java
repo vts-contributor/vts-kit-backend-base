@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Utils extends vn.com.viettel.core.utils.Utils {
+public class Utils {
     private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
 
     /**
