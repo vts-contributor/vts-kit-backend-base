@@ -49,7 +49,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException e, HttpServletRequest req, Authentication authentication) {
-        LOG.error("Has Access is denied ERROR user: {} in: {}", Utils.getUserLogin(authentication), req.getRequestURI());
+        LOG.error("Has Access is denied ERROR user: {} in: {}", authentication != null ? authentication.getCredentials() : "", req.getRequestURI());
         return new ResponseEntity<>(HttpStatus.FORBIDDEN.getReasonPhrase(), HttpStatus.FORBIDDEN);
     }
 
