@@ -14,7 +14,7 @@ public class Utils {
 
 
     /**
-     * Kiem tra object co null hay khong
+     * Kiem tra object co null hay khong`````````````````````````````````````````````
      *
      * @param objects
      * @return
@@ -57,7 +57,7 @@ public class Utils {
      * @return
      */
     public static boolean isNullOrEmpty(final Collection<?> collection) {
-        return collection == null || collection.isEmpty();
+        return collection == null || collection.isEmpty(); mmn
     }
 
     /**
