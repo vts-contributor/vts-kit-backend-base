@@ -24,6 +24,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import vn.com.viettel.core.config.I18n;
 import vn.com.viettel.utils.ResponseUtils;
 import vn.com.viettel.utils.Utils;
 import vn.com.viettel.utils.ErrorApp;
@@ -48,7 +49,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException e, HttpServletRequest req, Authentication authentication) {
-        LOG.error("Has Access is denied ERROR user: {} in: {}", Utils.getUserLogin(authentication), req.getRequestURI());
+        LOG.error("Has Access is denied ERROR user: {} in: {}", authentication != null ? authentication.getCredentials() : "", req.getRequestURI());
         return new ResponseEntity<>(HttpStatus.FORBIDDEN.getReasonPhrase(), HttpStatus.FORBIDDEN);
     }
 
@@ -57,7 +58,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         LOG.error("Has ERROR", ex);
         String mess = "";
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            mess = error.getDefaultMessage();
+            mess = I18n.getMessage(error.getDefaultMessage());
             break;
         }
         return ResponseUtils.getResponseEntity(HttpStatus.BAD_REQUEST.value(), mess, HttpStatus.BAD_REQUEST);

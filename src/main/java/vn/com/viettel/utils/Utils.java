@@ -1,6 +1,5 @@
 package vn.com.viettel.utils;
 
-import org.keycloak.KeycloakPrincipal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -10,109 +9,12 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Utils extends vn.com.viettel.core.utils.Utils {
+public class Utils {
     private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
 
-    /**
-     * Lay thong tin user
-     *
-     * @param authentication
-     * @return
-     */
-    public static String getUserLogin(Authentication authentication) {
-        try {
-            KeycloakPrincipal principal = (KeycloakPrincipal) authentication.getPrincipal();
-            String userName = principal.getKeycloakSecurityContext().getToken().getPreferredUsername().toUpperCase();
-            return userName;
-        } catch (Exception e) {
-            LOGGER.error("Loi! getUserLogin: ", e);
-            return null;
-        }
-    }
 
     /**
-     * Lay thong tin user id
-     *
-     * @param authentication
-     * @return
-     */
-    public static String getUserLoginId(Authentication authentication) {
-        try {
-            KeycloakPrincipal principal = (KeycloakPrincipal) authentication.getPrincipal();
-            String userId = principal.getKeycloakSecurityContext().getToken().getId();
-            return userId;
-        } catch (Exception e) {
-            LOGGER.error("Loi! getUserLoginId: ", e);
-            return null;
-        }
-    }
-
-    /**
-     * Get string token
-     *
-     * @param authentication
-     * @return
-     */
-    public static String getStringToken(Authentication authentication) {
-        try {
-            KeycloakPrincipal principal = (KeycloakPrincipal) authentication.getPrincipal();
-            String strToken = principal.getKeycloakSecurityContext().getTokenString();
-            return strToken;
-        } catch (Exception e) {
-            LOGGER.error("Loi! getUserLogin: ", e);
-            return null;
-        }
-    }
-
-    /**
-     * Lay is user login tu token
-     *
-     * @param authentication
-     * @return
-     */
-    public static String getIdUserLogin(Authentication authentication) {
-        try {
-            KeycloakPrincipal principal = (KeycloakPrincipal) authentication.getPrincipal();
-            String userId = principal.getKeycloakSecurityContext().getToken().getId();
-            return userId;
-        } catch (Exception e) {
-            LOGGER.error("Loi! getIdUserLogin: ", e);
-            return null;
-        }
-    }
-
-    /**
-     * Lay role
-     * @param authentication
-     * @return
-     */
-    public static Set<String> getRoleId(Authentication authentication) {
-        try {
-            KeycloakPrincipal principal = (KeycloakPrincipal) authentication.getPrincipal();
-            Set<String> roleId = principal.getKeycloakSecurityContext().getToken().getResourceAccess().get(getClientId(authentication)).getRoles();
-            return roleId;
-        } catch (Exception e) {
-            LOGGER.error("Loi! getUserLogin: ", e);
-            return new HashSet<>();
-        }
-    }
-
-    /**
-     * Lay client id
-     */
-    public static String getClientId(Authentication authentication) {
-        try {
-            KeycloakPrincipal principal = (KeycloakPrincipal) authentication.getPrincipal();
-            String clientId = principal.getKeycloakSecurityContext().getToken().getIssuedFor();
-            return clientId;
-        } catch (Exception e) {
-            LOGGER.error("Loi! getUserLogin: ", e);
-            return null;
-        }
-    }
-
-    /**
-     * Kiem tra object co null hay khong
+     * Kiem tra object co null hay khong`````````````````````````````````````````````
      *
      * @param objects
      * @return
@@ -155,7 +57,7 @@ public class Utils extends vn.com.viettel.core.utils.Utils {
      * @return
      */
     public static boolean isNullOrEmpty(final Collection<?> collection) {
-        return collection == null || collection.isEmpty();
+        return collection == null || collection.isEmpty(); mmn
     }
 
     /**

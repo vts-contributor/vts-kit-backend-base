@@ -22,6 +22,18 @@
             <artifactId>vts-kit-backend-core</artifactId>
             <version>1.0-RELEASE</version>
         </dependency>
+        <!-- FOR USING DATABASE
+        <dependency>
+            <groupId>vn.com.viettel.core</groupId>
+            <artifactId>vts-kit-backend-core-jpa</artifactId>
+            <version>1.0-RELEASE</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>vn.com.viettel.core</groupId>
+            <artifactId>vts-kit-backend-common</artifactId>
+            <version>1.0-RELEASE</version>
+        </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
@@ -37,11 +49,6 @@
             <artifactId>modelmapper</artifactId>
             <version>3.1.0</version>
         </dependency>
-        <dependency>
-            <groupId>vn.com.viettel.core</groupId>
-            <artifactId>vts-kit-backend-core-jpa</artifactId>
-            <version>1.0-RELEASE</version>
-        </dependency>
 
         <dependency>
             <groupId>vn.com.viettel</groupId>
@@ -53,11 +60,16 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
     </dependencies>
     <repositories>
         <repository>
@@ -76,5 +88,14 @@
 
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>maven-public</id>
+            <name>Internal Public</name>
+            <!--suppress UnresolvedMavenProperty -->
+            <url>http://10.254.144.164:8081/repository/maven-public/</url>
+        </repository>
+    </repositories>
 
 </project>
