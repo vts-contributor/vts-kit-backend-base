@@ -18,21 +18,15 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>vn.com.viettel.core</groupId>
+            <groupId>com.atviettelsolutions</groupId>
             <artifactId>vts-kit-backend-core</artifactId>
-            <version>1.0-RELEASE</version>
+            <version>1.0.0</version>
         </dependency>
-        <!-- FOR USING DATABASE
+        <!-- FOR USING DATABASE-->
         <dependency>
-            <groupId>vn.com.viettel.core</groupId>
+            <groupId>com.atviettelsolutions</groupId>
             <artifactId>vts-kit-backend-core-jpa</artifactId>
-            <version>1.0-RELEASE</version>
-        </dependency>-->
-
-        <dependency>
-            <groupId>vn.com.viettel.core</groupId>
-            <artifactId>vts-kit-backend-common</artifactId>
-            <version>1.0-RELEASE</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -51,9 +45,9 @@
         </dependency>
 
         <dependency>
-            <groupId>vn.com.viettel</groupId>
+            <groupId>com.atviettelsolutions</groupId>
             <artifactId>gen-code</artifactId>
-            <version>1.0-RELEASE</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -69,7 +63,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-
     </dependencies>
     <repositories>
         <repository>
@@ -89,13 +82,5 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>maven-public</id>
-            <name>Internal Public</name>
-            <!--suppress UnresolvedMavenProperty -->
-            <url>http://10.254.144.164:8081/repository/maven-public/</url>
-        </repository>
-    </repositories>
 
 </project>

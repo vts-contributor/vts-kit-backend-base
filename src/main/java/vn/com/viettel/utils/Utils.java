@@ -57,7 +57,7 @@ public class Utils {
      * @return
      */
     public static boolean isNullOrEmpty(final Collection<?> collection) {
-        return collection == null || collection.isEmpty(); mmn
+        return collection == null || collection.isEmpty();
     }
 
     /**
