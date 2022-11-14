@@ -14,7 +14,7 @@ public class Utils {
 
 
     /**
-     * Kiem tra object co null hay khong
+     * Kiem tra object co null hay khong`````````````````````````````````````````````
      *
      * @param objects
      * @return
