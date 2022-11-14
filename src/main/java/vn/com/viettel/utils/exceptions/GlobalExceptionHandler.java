@@ -74,7 +74,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 return ResponseUtils.getResponseEntity(HttpStatus.BAD_REQUEST.value(), mess, HttpStatus.BAD_REQUEST);
             }
         }
-        return ResponseUtils.getResponseEntity(ErrorApp.INTERNAL_SERVER.getCode(), ErrorApp.INTERNAL_SERVER.getDescription(), HttpStatus.OK);
+        return ResponseUtils.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR.value(), I18n.getMessage("msg.internal.server"));
     }
 
     @ExceptionHandler(CustomException.class)
@@ -87,7 +87,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         }
         if (Objects.isNull(ex.getErrorApp())) {
             if (Objects.nonNull(ex.getCodeError())) {
-                return ResponseUtils.getResponseEntity(ex.getCodeError(), ex.getMessage(), HttpStatus.BAD_REQUEST);
+                return ResponseUtils.getResponseEntity(ex.getCodeError(), ex.getMessage(), HttpStatus.resolve(ex.getCodeError()));
             }
             return ResponseUtils.getResponseEntity(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -97,7 +97,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception ex) {
         LOG.error("Has ERROR", ex);
-        return ResponseUtils.getResponseEntity(500, ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return ResponseUtils.getResponseEntity(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @Override
