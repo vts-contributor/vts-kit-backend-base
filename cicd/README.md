@@ -1,6 +1,6 @@
 # Getting Started
 CICD built into the backend base is based on corporate standards but with a slight improvement on the implementation part, 
-now the basic values of a project will be collectively configured in the file: jenkinsfile_env.groovy .
+now the basic values of a project will be collectively configured in the file: [jenkinsfile_env.groovy](/cicd/jenkinsfile_env.groovy) .
 
 ### Structure
 ```
@@ -26,7 +26,7 @@ now the basic values of a project will be collectively configured in the file: j
 ```
 ### Config Environments
 #### Note 
-All environment variables can be defined in the jenkinsfile_env.groovy file, 
+All environment variables can be defined in the [jenkinsfile_env.groovy](/cicd/jenkinsfile_env.groovy) file, 
 but with some particularly important information it can be defined in the config file on the jenkins server.
 
 #### Pipline script in Jenkins Server
@@ -65,7 +65,7 @@ env.containerPort = "<CONTAINER PORT>"
 // Image pull secret if your repo config
 env.imagePullSecrets = "<IMAGE PULL SECRET>"
 ```
-Find out more at: `cicd/dev-deploy-manifest.yaml`
+Find out more at: [dev-deploy-manifest.yaml](/cicd/dev-deploy-manifest.yaml)
 #### Build Environments
 ```groovy
 // Image name, with prefix is url private repo
@@ -108,7 +108,7 @@ env.STAGING_IP="<IP>"
 env.STAGING_PORT="<PORT>"
 ```
 
-In addition, you can define a few more project-specific environment variables, see more at:`jenkinsfile_env.groovy`
+In addition, you can define a few more project-specific environment variables, see more at: [jenkinsfile_env.groovy](/cicd/jenkinsfile_env.groovy)
 
 
 
