@@ -42,15 +42,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleValidateException(ConstraintViolationException e) {
         LOG.error("Has ERROR", e);
-        String mess = e.getConstraintViolations().stream()
-                .map(ConstraintViolation::getMessage).findFirst().orElse("");
-        return ResponseUtils.getResponseEntity(HttpStatus.BAD_REQUEST.value(), mess, HttpStatus.BAD_REQUEST);
+        String mess = e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).findFirst().orElse("");
+        return ResponseUtils.getResponseEntity(HttpStatus.BAD_REQUEST.value(), I18n.getMessage(mess), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException e, HttpServletRequest req, Authentication authentication) {
-        LOG.error("Has Access is denied ERROR user: {} in: {}", authentication != null ? authentication.getCredentials() : "", req.getRequestURI());
-        return new ResponseEntity<>(HttpStatus.FORBIDDEN.getReasonPhrase(), HttpStatus.FORBIDDEN);
+        LOG.error("Has Access is denied ERROR user: {} in: {}", authentication.getPrincipal(), req.getRequestURI());
+        return new ResponseEntity<>(ErrorApp.FORBIDDEN, HttpStatus.FORBIDDEN);
     }
 
     @Override
@@ -58,10 +57,40 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         LOG.error("Has ERROR", ex);
         String mess = "";
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            mess = I18n.getMessage(error.getDefaultMessage());
-            break;
+            mess = error.getDefaultMessage();
+            switch (Objects.requireNonNull(error.getCode())) {
+                case "NotBlank":
+                case "NotEmpty":
+                case "NotNull":
+                    mess = String.format(I18n.getMessage("msg.common.validate.not.null"), Utils.getErrorField(error.getField()));
+                    break;
+                case "Pattern":
+                    mess = String.format(I18n.getMessage("msg.common.validate.type.invalid"), Utils.getErrorField(error.getField()));
+                    break;
+                case "Size":
+                    if (error.getArguments() != null && error.getArguments().length == 3) {
+                        int min = (int) error.getArguments()[2];
+                        int max = (int) error.getArguments()[1];
+                        mess = String.format(I18n.getMessage("msg.common.validate.size.invalid"), Utils.getErrorField(error.getField()), min, max);
+                    }
+                    break;
+                case "Max":
+                    if (error.getArguments() != null && error.getArguments().length == 2) {
+                        long max = (long) error.getArguments()[1];
+                        mess = String.format(I18n.getMessage("msg.common.validate.max.invalid"), Utils.getErrorField(error.getField()), max);
+                    }
+                    break;
+                case "Min":
+                    if (error.getArguments() != null && error.getArguments().length == 2) {
+                        long min = (long) error.getArguments()[1];
+                        mess = String.format(I18n.getMessage("msg.common.validate.min.invalid"), Utils.getErrorField(error.getField()), min);
+                    }
+                    break;
+                case "Digits":
+                    mess = String.format(I18n.getMessage("msg.common.method.argument.not.valid"), Utils.getErrorField(error.getField()));
+            }
         }
-        return ResponseUtils.getResponseEntity(HttpStatus.BAD_REQUEST.value(), mess, HttpStatus.BAD_REQUEST);
+        return ResponseUtils.getResponseEntity(HttpStatus.BAD_REQUEST.value(), I18n.getMessage(mess), HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -71,10 +100,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             InvalidFormatException cause = (InvalidFormatException) ex.getCause();
             for (JsonMappingException.Reference path : cause.getPath()) {
                 String mess = path.getFieldName() + ": Invalid format";
-                return ResponseUtils.getResponseEntity(HttpStatus.BAD_REQUEST.value(), mess, HttpStatus.BAD_REQUEST);
+                return ResponseUtils.getResponseEntity(HttpStatus.BAD_REQUEST.value(), I18n.getMessage(mess), HttpStatus.BAD_REQUEST);
             }
         }
-        return ResponseUtils.getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR.value(), I18n.getMessage("msg.internal.server"));
+        return ResponseUtils.getResponseEntity(ErrorApp.INTERNAL_SERVER, HttpStatus.OK);
     }
 
     @ExceptionHandler(CustomException.class)
@@ -87,17 +116,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         }
         if (Objects.isNull(ex.getErrorApp())) {
             if (Objects.nonNull(ex.getCodeError())) {
-                return ResponseUtils.getResponseEntity(ex.getCodeError(), ex.getMessage(), HttpStatus.resolve(ex.getCodeError()));
+                return ResponseUtils.getResponseEntity(ex.getCodeError(), ex.getMessage(), HttpStatus.BAD_REQUEST);
             }
             return ResponseUtils.getResponseEntity(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return ResponseUtils.getResponseEntity(500, ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return ResponseUtils.getResponseEntity(500, ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception ex) {
         LOG.error("Has ERROR", ex);
-        return ResponseUtils.getResponseEntity(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return ResponseUtils.getResponseEntity(500, ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -138,6 +167,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         } else {
             LOG.error("Has ERROR MethodArgumentTypeMismatchException with message = {}", ex.getMessage());
         }
-        return ResponseUtils.getResponseEntity(HttpStatus.BAD_REQUEST.value(), "Tham số đường dẫn không hợp lệ", HttpStatus.OK);
+        return ResponseUtils.getResponseEntity(ErrorApp.BAD_REQUEST_PATH, HttpStatus.BAD_REQUEST);
     }
 }

@@ -3,7 +3,7 @@
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
         <!-- daily rollover -->
         <fileNamePattern>../logs-backend/app.%d{yyyy-MM-dd}.log</fileNamePattern>
-<!--        <maxHistory>30</maxHistory>-->
+        <!--        <maxHistory>30</maxHistory>-->
     </rollingPolicy>
     <Properties>
         <Property name="LOG_PATTERN">

@@ -1,4 +1,4 @@
 #NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Tue Sep 20 13:43:12 ICT 2022
-viettel-core-1.0-RELEASE.jar>=
-viettel-core-1.0-RELEASE.pom>=
+#Mon Nov 28 11:08:44 ICT 2022
+vts-kit-backend-core-jpa-1.0.0.pom>=
+vts-kit-backend-core-jpa-1.0.0.jar>=

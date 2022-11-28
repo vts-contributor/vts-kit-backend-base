@@ -6,9 +6,11 @@
       "type": "get",
       "name": "getEmployees",
       "value": "/v1/employees",
-      "sql": "select * from EMPLOYEES",
+      "sql": "SELECT * FROM HR_EMPLOYEES WHERE (:employeeId is null or EMPLOYEE_ID = :employeeId ) AND (:fullName is null or FULL_NAME LIKE %:fullName%)",
+      "params":["employeeId","fullName"],
       "desc": "Lay du thong tin nhan vien",
-      "count": 1
+      "count": 1,
+      "jpa": true
     }
   ]
 }

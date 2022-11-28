@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-  <groupId>vn.com.viettel.core</groupId>
-  <artifactId>viettel-core</artifactId>
+  <groupId>vn.com.viettel</groupId>
+  <artifactId>vts-kit-backend-gencode</artifactId>
   <versioning>
     <release>1.0-RELEASE</release>
     <versions>
       <version>1.0-RELEASE</version>
     </versions>
-    <lastUpdated>20220920064312</lastUpdated>
+    <lastUpdated>20221124084522</lastUpdated>
   </versioning>
 </metadata>

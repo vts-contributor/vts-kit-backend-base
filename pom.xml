@@ -9,78 +9,48 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>vn.com.viettel</groupId>
-    <artifactId>back-end-template</artifactId>
-    <version>0.0.1</version>
-    <name>back-end-template</name>
-    <description>Demo project for Spring Boot</description>
+    <artifactId>vts-kit-backend-base</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>vts-kit-backend-base</name>
+    <description>VTS KIT BACKEND BASE</description>
     <properties>
-        <java.version>8</java.version>
+        <java.version>11</java.version>
+        <vts-kit-backend-core-keycloak.version>1.0-RELEASE</vts-kit-backend-core-keycloak.version>
+        <!-- <vts-kit-backend-core.version>1.0-RELEASE</vts-kit-backend-core.version> -->
+        <vts-kit-backend-gencode.version>1.0-RELEASE</vts-kit-backend-gencode.version>
+        <vts-kit-backend-core-jpa.version>1.0-RELEASE</vts-kit-backend-core-jpa.version>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.atviettelsolutions</groupId>
+            <groupId>vn.com.viettel.core</groupId>
+            <artifactId>vts-kit-backend-core-keycloak</artifactId>
+            <version>${vts-kit-backend-core-keycloak.version}</version>
+        </dependency>
+        <!-- Neu khong su dung keycloak thi dung lib nay va comment lai lib vts-kit-backend-core-keycloak
+        <dependency>
+            <groupId>vn.com.viettel.core</groupId>
             <artifactId>vts-kit-backend-core</artifactId>
-            <version>1.0.0</version>
+            <version>${vts-kit-backend-core.version}</version>
         </dependency>
-        <!-- FOR USING DATABASE-->
+        -->
         <dependency>
-            <groupId>com.atviettelsolutions</groupId>
+            <groupId>vn.com.viettel.core</groupId>
             <artifactId>vts-kit-backend-core-jpa</artifactId>
-            <version>1.0.0</version>
+            <version>${vts-kit-backend-core-jpa.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>1.5.2.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>1.5.2.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.atviettelsolutions</groupId>
-            <artifactId>gen-code</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <groupId>vn.com.viettel</groupId>
+            <artifactId>vts-kit-backend-gencode</artifactId>
+            <version>${vts-kit-backend-gencode.version}</version>
         </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>maven-public</id>
-            <name>Internal Public</name>
-            <!--suppress UnresolvedMavenProperty -->
-            <url>http://10.254.144.164:8081/repository/maven-public/</url>
-        </repository>
-    </repositories>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
         </plugins>
     </build>
-
 
 </project>

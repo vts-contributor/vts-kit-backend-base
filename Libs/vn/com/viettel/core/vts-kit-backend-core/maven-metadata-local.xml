@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>vn.com.viettel.core</groupId>
+  <artifactId>vts-kit-backend-core</artifactId>
+  <versioning>
+    <release>1.0-RELEASE</release>
+    <versions>
+      <version>1.0-RELEASE</version>
+    </versions>
+    <lastUpdated>20221125060621</lastUpdated>
+  </versioning>
+</metadata>

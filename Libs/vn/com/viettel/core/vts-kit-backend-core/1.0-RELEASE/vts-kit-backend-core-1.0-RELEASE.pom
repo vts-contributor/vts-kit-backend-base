@@ -9,14 +9,20 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>vn.com.viettel.core</groupId>
-    <artifactId>viettel-core</artifactId>
+    <artifactId>vts-kit-backend-core</artifactId>
     <version>1.0-RELEASE</version>
-    <name>viettel-core</name>
-    <description>viettel-core</description>
+    <name>vts-kit-backend-core</name>
+    <description>VTS KIT BACKEND CORE</description>
     <properties>
         <java.version>11</java.version>
-        <keycloak.version>16.1.0</keycloak.version>
         <springfox.version>3.0.0</springfox.version>
+        <log4j.version>1.2.17</log4j.version>
+        <commons.lang.version>2.6</commons.lang.version>
+        <jasypt.version>3.0.4</jasypt.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
+        <resilience4j.version>2.1.4</resilience4j.version>
+        <javax.xml.soap.version>1.4.0</javax.xml.soap.version>
+        <commons.io.version>2.11.0</commons.io.version>
     </properties>
     <dependencies>
         <dependency>
@@ -36,16 +42,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-spring-security-adapter</artifactId>
-            <version>${keycloak.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-spring-boot-starter</artifactId>
-            <version>${keycloak.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -85,9 +81,14 @@
             <type>jar</type>
         </dependency>
         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
+        </dependency>
+        <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
+            <version>${commons.lang.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -101,13 +102,50 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <version>${log4j.version}</version>
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>ojdbc8</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>${jasypt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+            <version>${resilience4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.soap</groupId>
+            <artifactId>javax.xml.soap-api</artifactId>
+            <version>${javax.xml.soap.version}</version>
         </dependency>
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
