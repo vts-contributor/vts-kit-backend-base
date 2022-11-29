@@ -19,7 +19,7 @@
         <vts-kit-backend-core.version>1.1-RELEASE</vts-kit-backend-core.version>
        <vts-kit-backend-gencode.version>1.0-RELEASE</vts-kit-backend-gencode.version>
         <vts-kit-backend-core-jpa.version>1.1-RELEASE</vts-kit-backend-core-jpa.version>
-        <vts-kit-lib-kpilog>1.0-RELEASE</vts-kit-lib-kpilog>
+        <vts-kit-lib-kpilog.version>1.0-RELEASE</vts-kit-lib-kpilog.version>
     </properties>
     <dependencies>
         <!--<dependency>
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>com.atviettelsolutions</groupId>
             <artifactId>vts-kit-lib-kpilog</artifactId>
-            <version>${vts-kit-lib-kpilog}</version>
+            <version>${vts-kit-lib-kpilog.version}</version>
         </dependency>
         <dependency>
             <groupId>vn.com.viettel</groupId>
