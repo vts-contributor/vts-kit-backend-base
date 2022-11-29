@@ -15,28 +15,39 @@
     <description>VTS KIT BACKEND BASE</description>
     <properties>
         <java.version>11</java.version>
-        <vts-kit-backend-core-keycloak.version>1.0-RELEASE</vts-kit-backend-core-keycloak.version>
-        <!-- <vts-kit-backend-core.version>1.0-RELEASE</vts-kit-backend-core.version> -->
-        <vts-kit-backend-gencode.version>1.0-RELEASE</vts-kit-backend-gencode.version>
-        <vts-kit-backend-core-jpa.version>1.0-RELEASE</vts-kit-backend-core-jpa.version>
+        <!-- <vts-kit-backend-core-keycloak.version>1.0-RELEASE</vts-kit-backend-core-keycloak.version>-->
+        <vts-kit-backend-core.version>1.1-RELEASE</vts-kit-backend-core.version>
+       <vts-kit-backend-gencode.version>1.0-RELEASE</vts-kit-backend-gencode.version>
+        <vts-kit-backend-core-jpa.version>1.1-RELEASE</vts-kit-backend-core-jpa.version>
+        <vts-kit-lib-kpilog>1.0-RELEASE</vts-kit-lib-kpilog>
     </properties>
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>vn.com.viettel.core</groupId>
             <artifactId>vts-kit-backend-core-keycloak</artifactId>
             <version>${vts-kit-backend-core-keycloak.version}</version>
-        </dependency>
+        </dependency>-->
         <!-- Neu khong su dung keycloak thi dung lib nay va comment lai lib vts-kit-backend-core-keycloak
+         -->
         <dependency>
             <groupId>vn.com.viettel.core</groupId>
             <artifactId>vts-kit-backend-core</artifactId>
             <version>${vts-kit-backend-core.version}</version>
         </dependency>
-        -->
+
         <dependency>
             <groupId>vn.com.viettel.core</groupId>
             <artifactId>vts-kit-backend-core-jpa</artifactId>
             <version>${vts-kit-backend-core-jpa.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.atviettelsolutions</groupId>
+            <artifactId>vts-kit-lib-kpilog</artifactId>
+            <version>${vts-kit-lib-kpilog}</version>
         </dependency>
         <dependency>
             <groupId>vn.com.viettel</groupId>

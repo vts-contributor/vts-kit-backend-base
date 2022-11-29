@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="CONSOLE_MSG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5p %c{1}:%X{line} - %m%n" />
+    <property name="KPI_MSG_PATTERN" value="%d{yyyy-MM-dd@HH:mm:ss}[%c{1}:%X{line}] :%m%n" />
+    <property name="MAX_HISTORY" value="3" />
+    <property name="MAX_FILE_SIZE" value="100MB" />
+    <springProperty name="LOG_LEVEL" source="logs.level" defaultValue = "INFO"/>
+    <springProperty name="LOG_FOLDER" source="logs.log-folder"/>
+    <springProperty name="KPI_LOG_FILE" source="logs.kpi-logs.kpi-log-file-name" defaultValue = "kpi_log.log"/>
+    <springProperty name="ERROR_LOG_FILE" source="logs.app-logs.error-log-file-name"  defaultValue = "error_log.log"/>
+    <springProperty name="CONSOLE_LOG_FILE" source="logs.app-logs.console-log-file-name" />
+
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+    <if condition='isDefined("LOG_FOLDER") &amp;&amp; isDefined("KPI_LOG_FILE")'>
+        <then>
+            <appender name="KPI_ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${LOG_FOLDER}/${KPI_LOG_FILE}</file>
+                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                    <Pattern>${KPI_MSG_PATTERN}</Pattern>
+                    <charset>utf8</charset>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                    <fileNamePattern>${LOG_FOLDER}/archived-kpi-%d{yyyy-MM-dd}/kpi.log.%i.zip</fileNamePattern>
+                    <maxHistory>${MAX_HISTORY}</maxHistory>
+                    <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+                </rollingPolicy>
+
+                <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+                    <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                        <marker>KPI_LOG</marker>
+                    </evaluator>
+                    <onMismatch>DENY</onMismatch>
+                    <onMatch>NEUTRAL</onMatch>
+                </filter>
+            </appender>
+        </then>
+    </if>
+    <if condition='isDefined("LOG_FOLDER") &amp;&amp; isDefined("ERROR_LOG_FILE")'>
+        <then>
+            <appender name="ERROR_ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${LOG_FOLDER}/${ERROR_LOG_FILE}</file>
+                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                    <Pattern>${CONSOLE_MSG_PATTERN}</Pattern>
+                    <charset>utf8</charset>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                    <fileNamePattern>${LOG_FOLDER}/archived-error-%d{yyyy-MM-dd}/error.log.%i.zip</fileNamePattern>
+                    <maxHistory>${MAX_HISTORY}</maxHistory>
+                    <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+                </rollingPolicy>
+                <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+                    <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                        <marker>ERROR_LOG</marker>
+                    </evaluator>
+                    <onMismatch>DENY</onMismatch>
+                    <onMatch>NEUTRAL</onMatch>
+                </filter>
+            </appender>
+        </then>
+    </if>
+    <if condition='isDefined("LOG_FOLDER") &amp;&amp; isDefined("CONSOLE_LOG_FILE")'>
+        <then>
+            <appender name="CONSOLE_LOG_ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${LOG_FOLDER}/${CONSOLE_LOG_FILE}</file>
+                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                    <Pattern>${CONSOLE_MSG_PATTERN}</Pattern>
+                    <charset>utf8</charset>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                    <fileNamePattern>${LOG_FOLDER}/archived-console-%d{yyyy-MM-dd}/console.log.%i.zip</fileNamePattern>
+                    <maxHistory>${MAX_HISTORY}</maxHistory>
+                    <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+                </rollingPolicy>
+                <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+                    <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                        <marker>KPI_LOG</marker>
+                    </evaluator>
+                    <onMatch>DENY</onMatch>
+                </filter>
+            </appender>
+        </then>
+    </if>
+    <appender name="CONSOLE_LOG" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                <Pattern>${CONSOLE_MSG_PATTERN}</Pattern>
+            </Pattern>
+        </layout>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                <marker>KPI_LOG</marker>
+            </evaluator>
+            <onMatch>DENY</onMatch>
+        </filter>
+    </appender>
+
+    <root level="${LOG_LEVEL}">
+        <appender-ref ref="CONSOLE_LOG" />
+        <if condition='isDefined("LOG_FOLDER") &amp;&amp; isDefined("CONSOLE_LOG_FILE")'>
+            <then>
+                <appender-ref ref="CONSOLE_LOG_ROLLING_FILE" />
+            </then>
+        </if>
+        <if condition='isDefined("LOG_FOLDER") &amp;&amp; isDefined("KPI_LOG_FILE")'>
+            <then>
+                <appender-ref ref="KPI_ROLLING_FILE" />
+            </then>
+        </if>
+        <if condition='isDefined("LOG_FOLDER") &amp;&amp; isDefined("ERROR_LOG_FILE")'>
+            <then>
+                <appender-ref ref="ERROR_ROLLING_FILE" />
+            </then>
+        </if>
+    </root>
+</configuration>
