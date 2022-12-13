@@ -22,11 +22,7 @@
         <vts-kit-lib-kpilog.version>1.0-RELEASE</vts-kit-lib-kpilog.version>
     </properties>
     <dependencies>
-        <!--<dependency>
-            <groupId>vn.com.viettel.core</groupId>
-            <artifactId>vts-kit-backend-core-keycloak</artifactId>
-            <version>${vts-kit-backend-core-keycloak.version}</version>
-        </dependency>-->
+
         <!-- Neu khong su dung keycloak thi dung lib nay va comment lai lib vts-kit-backend-core-keycloak
          -->
         <dependency>
@@ -35,10 +31,22 @@
             <version>${vts-kit-backend-core.version}</version>
         </dependency>
 
+        <!--<dependency>
+          <groupId>vn.com.viettel.core</groupId>
+          <artifactId>vts-kit-backend-core-keycloak</artifactId>
+          <version>${vts-kit-backend-core-keycloak.version}</version>
+      </dependency>-->
+
+
         <dependency>
             <groupId>vn.com.viettel.core</groupId>
             <artifactId>vts-kit-backend-core-jpa</artifactId>
             <version>${vts-kit-backend-core-jpa.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
             <groupId>org.codehaus.janino</groupId>
@@ -63,5 +71,13 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>maven-releases</id>
+            <name>Internal Releases</name>
+            <url>http://10.60.108.23:9001/repository/maven-releases/</url>
+        </repository>
+    </repositories>
 
 </project>
