@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import vn.com.viettel.core.config.EnableJasypt;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"vn.com.viettel"})
 @EnableJasypt(key = "VTS!@#GPDN@qaz2022")
 @EnableFeignClients(basePackages = {"vn.com.viettel"})
 public class BackEndTemplateApplication {

@@ -1,7 +1,5 @@
 package vn.com.viettel.utils.validates;
 
-import vn.com.viettel.core.config.I18n;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;

@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.7.3</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>vn.com.viettel</groupId>
     <artifactId>vts-kit-backend-base</artifactId>
@@ -14,55 +14,52 @@
     <name>vts-kit-backend-base</name>
     <description>VTS KIT BACKEND BASE</description>
     <properties>
-        <java.version>11</java.version>
         <!-- <vts-kit-backend-core-keycloak.version>1.0-RELEASE</vts-kit-backend-core-keycloak.version>-->
         <vts-kit-backend-core.version>1.1-RELEASE</vts-kit-backend-core.version>
-       <vts-kit-backend-gencode.version>1.0-RELEASE</vts-kit-backend-gencode.version>
-        <vts-kit-backend-core-jpa.version>1.1-RELEASE</vts-kit-backend-core-jpa.version>
-        <vts-kit-lib-kpilog.version>1.0-RELEASE</vts-kit-lib-kpilog.version>
+        <vts-kit-backend-gencode.version>1.0-RELEASE</vts-kit-backend-gencode.version>
+        <springdoc-openapi-ui.version>1.6.8</springdoc-openapi-ui.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
-        <!-- Neu khong su dung keycloak thi dung lib nay va comment lai lib vts-kit-backend-core-keycloak
-         -->
+        <!--<dependency>
+            <groupId>vn.com.viettel.core</groupId>
+            <artifactId>vts-kit-backend-core-keycloak</artifactId>
+            <version>${vts-kit-backend-core-keycloak.version}</version>
+        </dependency>-->
+        <!-- Neu khong su dung keycloak thi dung lib nay va comment lai lib vts-kit-backend-core-keycloak -->
         <dependency>
             <groupId>vn.com.viettel.core</groupId>
             <artifactId>vts-kit-backend-core</artifactId>
             <version>${vts-kit-backend-core.version}</version>
-        </dependency>
-
-        <!--<dependency>
-          <groupId>vn.com.viettel.core</groupId>
-          <artifactId>vts-kit-backend-core-keycloak</artifactId>
-          <version>${vts-kit-backend-core-keycloak.version}</version>
-      </dependency>-->
-
-
-        <dependency>
-            <groupId>vn.com.viettel.core</groupId>
-            <artifactId>vts-kit-backend-core-jpa</artifactId>
-            <version>${vts-kit-backend-core-jpa.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
             <groupId>org.codehaus.janino</groupId>
             <artifactId>janino</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.atviettelsolutions</groupId>
-            <artifactId>vts-kit-lib-kpilog</artifactId>
-            <version>${vts-kit-lib-kpilog.version}</version>
-        </dependency>
-        <dependency>
             <groupId>vn.com.viettel</groupId>
             <artifactId>vts-kit-backend-gencode</artifactId>
             <version>${vts-kit-backend-gencode.version}</version>
         </dependency>
+
+        <!-- Swagger UI -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${springdoc-openapi-ui.version}</version>
+        </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>maven-releases</id>
+            <name>Internal Releases</name>
+            <url>http://10.60.108.23:9001/repository/maven-releases/</url>
+        </repository>
+    </repositories>
     <build>
         <plugins>
             <plugin>
@@ -71,13 +68,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>maven-releases</id>
-            <name>Internal Releases</name>
-            <url>http://10.254.144.164:8081//repository/maven-releases/</url>
-        </repository>
-    </repositories>
-
 </project>
