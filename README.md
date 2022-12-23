@@ -1,6 +1,24 @@
 # Back End Template
-#I. Quy định về các convention trong project
-#1 Quy hoạch package trong project
+- [Quy định về các convention trong project](#I.-Quy-định-về-các-convention-trong-project)
+    - [Quy hoạch package trong project](#1-Quy-hoạch-package-trong-project)
+    - [Cách đặt tên các đầu API theo chuẩn restful naming](#2-Cách-đặt-tên-các-đầu-API-theo-chuẩn-restful-naming)
+    - [Cách comment commit](#3-Cách-comment-commit)
+    - [Cách đặt tên nhánh](#4-Cách-đặt-tên-nhánh)
+- [Hướng dẫn lập trình và sử dụng gen code và các hàm có sẵn](#II.-Hướng-dẫn-lập-trình-và-sử-dụng-gen-code-và-các-hàm-có-sẵn)
+    - [Import libs](#1.-Import-libs)
+    - [Thực hiện gen code](#2.-Thực-hiện-gen-code)
+    - [Các hàm common trong class Utils](#3.-Các-hàm-common-trong-class-Utils)
+    - [Khai báo mã lỗi và trả mã lỗi về cho client](#4.-Khai-báo-mã-lỗi-và-trả-mã-lỗi-về-cho-client)
+    - [Cấu hình các API bỏ qua xác thực (API public)](#5.-Cấu-hình-các-API-bỏ-qua-xác-thực-(API-public))
+    - [Thực hiện ký chứng thư số từ USB](#6.-Thực-hiện-ký-chứng-thư-số-từ-USB)
+        - [Khai các mã lỗi, hàm common và lib](#6.1-Bước-1:-Khai-các-mã-lỗi,-hàm-common-và-lib)
+        - [Thực hiện lấy hash file và khai báo khởi tạo hệ chữ ký số](#6.2-Bước-2:-Thực-hiện-lấy-hash-file-và-khai-báo-khởi-tạo-hệ-chữ-ký-số)
+        - [Thực hiện attach chữ ký số vào file PDF.](#6.3-Bước-3:-Thực-hiện-attach-chữ-ký-số-vào-file-PDF.)
+    - [Hướng dẫn thực hiện cache trên spring service](#7.-Hướng-dẫn-thực-hiện-cache-trên-spring-service)
+    - [Hướng dẫn thực hiện outbox event](#8.-Hướng-dẫn-thực-hiện-outbox-event)
+
+## I. Quy định về các convention trong project
+### 1 Quy hoạch package trong project
 ````
       Package vn.com.viettel.controlers:        Nơi chứa các class tầng giao tiếp với bên ngoài và handler các request từ bên ngoài tới hệ thống.
       Package vn.com.viettel.dto:               Nơi chứa các Class Data transfer object
@@ -11,7 +29,7 @@
       Package vn.com.viettel.entities:          Nơi chứa các class Java mapping với Table trong databases.
       Package vn.com.viettel.utils:             Nơi chứa các hàm common và contants dùng chung cho project
 ````
-#2 Cách đặt tên các đầu API theo chuẩn restful naming. Tham khảo thêm https://restfulapi.net/resource-naming/
+### 2 Cách đặt tên các đầu API theo chuẩn restful naming. Tham khảo thêm https://restfulapi.net/resource-naming/
 ````
       Ví dụ cụ thể viết api cho form quản lý KH
       1. Thêm mới một khách hàng
@@ -34,7 +52,7 @@
          Method DELETE
          Naming api: $HOST/api/v1/customers/{customerId}
 ````
-#3 Cách comment commit theo https://www.conventionalcommits.org/en/v1.0.0/
+### 3 Cách comment commit theo https://www.conventionalcommits.org/en/v1.0.0/
 ````
       Mục đích: sau khi xóa nhánh phát triển, fix lỗi logs vẫn còn, và có thể thực hiện các chức năng mở rộng theo định đang đầu logs, ngoài ra còn hỗ trợ tìm kiếm nhanh.
       Cấu trúc:
@@ -52,7 +70,7 @@
       -	description: là mô tả ngắn về những gì sẽ bị sửa đổi trong commit đấy
       -	body: là mô tả dài và chi tiết hơn, cần thiết khi description chưa thể nói rõ hết được, có thể thêm phần ghi chú bằng các keyword
 ````
-#4 Cách đặt tên nhánh
+### 4 Cách đặt tên nhánh
 ````
       3.1 Nhánh master: nhánh chính chứa source code ổn định, đã được kiểm tra và có thể triển khai lên production. 
       Các kiểm tra cuối cùng sẽ được kiểm thử trên nhánh master phục vụ tích hợp trước triển khai.
@@ -76,9 +94,9 @@
       Khi có một bug nghiêm trọng trên bản production cần được giải quyết ngay lập tức, một hotfix branch sẽ được tách ra từ master
       Sau đó merge vào lại cả master và develop để ngăn lỗi xảy ra ở những lần release sau.
 ````
-#II. Hướng dẫn lập trình và sử dụng gen code và các hàm có sẵn
+## II. Hướng dẫn lập trình và sử dụng gen code và các hàm có sẵn
 
-#1. Import libs
+### 1. Import libs
 Thực hiện copy thư mục "vn" ở trong thư mục Libs vào MAVEN\Repository
 
 Hoặc cài lib local qua lênh sau. Bật command line tại thư mục Libs và copy lệnh sau:
@@ -96,7 +114,7 @@ Nếu không sử dụng keycloak để xác thực thì cài lib
 mvn install:install-file -Dfile=vts-kit-backend-core-1.0-RELEASE.jar -DgroupId=vn.com.viettel.core -DartifactId=vts-kit-backend-core -Dversion=1.0-RELEASE -Dpackaging=jar
 ````
 
-#2. Thực hiện gen code
+### 2. Thực hiện gen code
 File config.properties dùng để cấu hình gen code
 Cấu hình database để gen code, thay đổi thông tin database tương ứng cho ứng dụng đang code
    ```
@@ -143,24 +161,24 @@ Cấu hình đường dẫn thư mục code được gen ra
 
     Thực hiện gen code: chạy hàm main trong file MainGenCode
 
-#3. Các hàm common trong class Utils: các hàm dùng chung được viết tại class này
+### 3. Các hàm common trong class Utils: các hàm dùng chung được viết tại class này
 ````
     - Kiểm tra file xem có hợp lệ không
         boolean isValid = Utils.checkFileValid(fileName, file, maxFileSizeMb);
 ````
 
-#4. Khai báo mã lỗi và trả mã lỗi về cho client
+### 4. Khai báo mã lỗi và trả mã lỗi về cho client
 ````
     vn.com.viettel.utils.ErrorApp : Class định nghĩa các mã lỗi. Khai báo thêm mã lỗi ở đây
     Trả về mã lỗi cho client sử dụng class ResponseUtils với method getResponseEntity(ErrorApp errorApp, HttpStatus httpStatus)
 ````
-#5. Cấu hình các API bỏ qua xác thực (API public)
+### 5. Cấu hình các API bỏ qua xác thực (API public)
 ````
     permission.ignore.url = /api/v1/public/config;/api/v1/public/config/**;
     Trong đó /api/v1/public/config và các api có prefix /api/v1/public/config là các URI API cần được public
 ````
-#6.Thực hiện ký chứng thư số từ USB gồm 3 bước
-#6.1 Bước 1: Khai các mã lỗi, hàm common và lib
+### 6.Thực hiện ký chứng thư số từ USB gồm 3 bước
+#### 6.1 Bước 1: Khai các mã lỗi, hàm common và lib
 `````
     - Khai báo Constants trong class vn.com.viettel.utils.Constants
     public interface SIGN_CODE {
@@ -221,7 +239,7 @@ Cấu hình đường dẫn thư mục code được gen ra
         <version>1.0-RELEASE</version>
     </dependency>
 `````
-#6.2 Bước 2: Thực hiện lấy hash file và khai báo khởi tạo hệ chữ ký số. Xem code mẫu dưới
+#### 6.2 Bước 2: Thực hiện lấy hash file và khai báo khởi tạo hệ chữ ký số. Xem code mẫu dưới
 ````
     Integer statusCheckCert = Utils.checkCer("chuoi base cert");
     if (statusCheckCert == 1) {
@@ -253,7 +271,7 @@ Cấu hình đường dẫn thư mục code được gen ra
         //thong bao ma loi cho client
     }
 ````
-#6.3 Bước 3: Thực hiện attach chữ ký số vào file PDF. Xem code mẫu dưới
+#### 6.3 Bước 3: Thực hiện attach chữ ký số vào file PDF. Xem code mẫu dưới
 ````
     String sessionId = "Chuoi sessionId luc luu lai";
     HttpSession session = HttpSessionCollector.find(sessionId);
@@ -266,7 +284,7 @@ Cấu hình đường dẫn thư mục code được gen ra
         System.out.println(ex);
     }
 ````
-#7. Hướng dẫn thực hiện cache trên spring service
+### 7. Hướng dẫn thực hiện cache trên spring service
    ```
    public class CityService {
    
@@ -306,11 +324,11 @@ Cấu hình đường dẫn thư mục code được gen ra
     Khi save(city) được gọi, ngoài việc lưu xuống db, cũng đồng thời lưu vào redis object đó theo key là city::{object_id}
     Khi delete(city) được gọi, ngoài việc xóa ở db, cũng đồng thời gọi lệnh xóa city::{object_id} ở redis.
 
-#8. Hướng dẫn thực hiện outbox event
+### 8. Hướng dẫn thực hiện outbox event
 
 ![img_1.png](2.png)
 
-#8.1 Mỗi service, đi kèm một database của chính nó (database per service pattern), cần tạo một bảng OUTBOX_EVENT:
+#### 8.1 Mỗi service, đi kèm một database của chính nó (database per service pattern), cần tạo một bảng OUTBOX_EVENT:
    ```
    CREATE TABLE IF NOT EXISTS outbox_event
     (
@@ -359,7 +377,7 @@ Ví dụ một event sẽ như sau
    }
    ```
 
-#8.2 Producer event
+#### 8.2 Producer event
    ```
    @Autowired
    OutboxEventSender event;
@@ -378,7 +396,7 @@ Ví dụ một event sẽ như sau
     Ví dụ về dữ liệu được thêm mới vào bảng OUTBOX_EVENT:
 ![img.png](1.png)
 
-#8.3 Event in Apache Kafka
+#### 8.3 Event in Apache Kafka
 Với aggregate_type = City, trên Kafka sẽ có tương ứng một topic: outbox.event.City
 Như đã nói ở trên aggregate_id được dùng để đưa bản tin vào topic partition nếu topic được được setup có nhiều hơn 1 partition.
 Message payload trong một message ở topic outbox.event.City
@@ -392,7 +410,7 @@ Message payload trong một message ở topic outbox.event.City
    }
    ```
 
-#8.4 Nhận và xử lý event
+#### 8.4 Nhận và xử lý event
 Đăng ký nhận event trên topic outbox.event.City,
 Khi nhận được event, receiver sẽ thông qua ApplicationEventPublisher để publishEvent, các handler sẽ nhận và xử lý event này
    ```
