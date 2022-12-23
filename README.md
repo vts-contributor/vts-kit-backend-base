@@ -435,3 +435,23 @@ Khi nhận được event, receiver sẽ thông qua ApplicationEventPublisher đ
        }
    }
    ```
+## 3. Hướng dẫn tích hợp hệ thống ELK STACK
+### Cài đặt agent cho ứng dụng java, tomcat chạy trên K8s
+Đối với hệ thống chạy k8s: Cần rebuild lại image.\
+- Bước 1: Copy file elastic-apm-agent-1.29.0.jar vào folder apm-agent ở project 
+          để buil lại image. Có thể download tại: [Elastic-apm-agent-1.29.0](#http://10.254.144.164:8081/repository/maven-public/com/atviettelsolutions/vts-kit-elastic-apm-agent/1.29.0/vts-kit-elastic-apm-agent-1.29.0.jar)
+- Bước 2: Thêm command sau vào Dockerfile: COPY ./apm-agent /apm-
+- Bước 3: Sửa image mới và thêm biến môi trường trong k8s deployment
+```yaml
+- name: _JAVA_OPTIONS
+  value: -Xmx5g -XX:+UseG1GC -Delastic.apm.service_name=<service_name> -
+Delastic.apm.server_urls=http://10.254.145.240:8086/apm-server -javaagent:/apm-agent/elastic-apm-agent-1.29.0.jar
+```
+Lưu ý: Tham số -Xmx5g -XX:+UseG1GC cấu hình tùy thuộc vào tài nguyên sẵn 
+có
+- Bước 4: Restart lại ứng dụng.
+- Bước 5: Kiểm tra sau khi cài đặt.
+    - Chạy lệnh ""ps -ef | grep tomcat"" (Kiểm tra xem tiến trình tomcat vừa tác 
+động đã có tiến trình apm chưa).
+    - Truy cập dashboard ELK xem hệ thống đã được add lên chưa.
+    - Kiểm tra nghiệp vụ ứng dụng xem có lỗi không
