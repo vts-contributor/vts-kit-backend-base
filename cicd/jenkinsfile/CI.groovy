@@ -267,17 +267,17 @@ def buildPushCommit() {
 		}
 	}
 
-	stage("Package and build docker image") {
-		node("${env.node_slave}") {
-			buildProject("PUSH")
-		}
-	}
+	// stage("Package and build docker image") {
+	// 	node("${env.node_slave}") {
+	// 		buildProject("PUSH")
+	// 	}
+	// }
 
-	stage("Deploy to Server Test") {
-		node("${env.node_slave}") {
-			deployProject("PUSH")
-		}
-	}
+	// stage("Deploy to Server Test") {
+	// 	node("${env.node_slave}") {
+	// 		deployProject("PUSH")
+	// 	}
+	// }
 
 	currentBuild.result = "SUCCESS"
 }
