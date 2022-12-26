@@ -278,6 +278,7 @@ def buildPushCommit() {
 	// 		deployProject("PUSH")
 	// 	}
 	// }
+	//
 
 	currentBuild.result = "SUCCESS"
 }
