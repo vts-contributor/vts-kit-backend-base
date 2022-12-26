@@ -30,7 +30,7 @@ env.harborServer = "10.60.156.72"
 env.harborFolder = "vbcs"
 
 // Git information
-env.gitUserPassSecret = "datnv36-vts-kit"
+env.gitUserPassSecret = "datnv36-vts"
 env.stagingBranch = ""
 
 // Report config
