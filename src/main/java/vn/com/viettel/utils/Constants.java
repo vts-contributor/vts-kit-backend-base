@@ -14,7 +14,7 @@ public class Constants {
     private static Map<String, String> initMap() {
         Map<String, String> map = new HashMap<>();
         map.put("username", "Tên đăng nhập");
-        map.put("password", "Mật khẩu");
+        map.put("pwd", "Mật khẩu");
         return Collections.unmodifiableMap(map);
     }
 }
