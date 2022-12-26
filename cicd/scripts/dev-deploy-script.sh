@@ -16,4 +16,5 @@ sleep 90
 echo  'View result deploy'
 kubectl -n "$devNamespace" get pods,svc,hpa --kubeconfig=__kubeconfig__
 
+
 rm __kubeconfig__
