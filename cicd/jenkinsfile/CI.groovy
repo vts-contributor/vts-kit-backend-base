@@ -267,7 +267,7 @@ def buildPushCommit() {
 		}
 	}
 
-
+    // remove 2 stage
 
 	// stage("Package and build docker image") {
 	// 	node("${env.node_slave}") {
