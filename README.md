@@ -1,5 +1,7 @@
-![[viettel-logo]][logo-vt-url]
-
+<p align="center">
+    <img src="/docs/image/logo-vt.svg" width="500px" height="auto" />
+</p>
+    
 # Back End Template
 - [Quy định về các convention trong project](#I.-Quy-định-về-các-convention-trong-project)
     - [Quy hoạch package trong project](#1-Quy-hoạch-package-trong-project)
