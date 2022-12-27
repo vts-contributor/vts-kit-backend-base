@@ -1,5 +1,3 @@
-![[viettel-logo]][logo-vt-url]
-
 # Back End Template
 - [Quy định về các convention trong project](#I.-Quy-định-về-các-convention-trong-project)
     - [Quy hoạch package trong project](#1-Quy-hoạch-package-trong-project)
@@ -437,4 +435,3 @@ Khi nhận được event, receiver sẽ thông qua ApplicationEventPublisher đ
        }
    }
    ```
-[logo-vt-url]: docs/image/logo-vt.svg
