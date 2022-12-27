@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="/docs/image/logo-vt.svg" width="500px" height="auto" />
+    <img src="/docs/image/logo-vt.svg" width="400px" height="auto" />
 </p>
     
 # Back End Template
