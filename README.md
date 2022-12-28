@@ -23,6 +23,7 @@
     - [Integration Kong Ingress Controller](//https://github.com/vts-contributor/vts-kit-kong-ingress-controller.git)
     - [Redis Caching](https://github.com/vts-contributor/vts-kit-ms-redis-cache.git)
 
+
 ## I. Built-in Feature
 
 
@@ -365,6 +366,7 @@ When receiving event, receiver will pass ApplicationEventPublisher to publishEve
    }
    ```
 [logo-vt-url]: docs/image/logo-vt.svg
+
 ## II. ELK STACK system integration guide
 ### Install agent for java application, tomcat running on K8s
 For systems running k8s: Need to rebuild image.
@@ -385,4 +387,5 @@ Note: The -Xmx5g -XX:+UseG1GC parameter is configurable depending on resource av
     - Run the command ""ps -ef | grep tomcat"" (Check if the active tomcat process already has apm process).
     - Access the ELK dashboard to see if the system has been added.
     - Check the application business for errors
+
 
