@@ -30,19 +30,17 @@
 ### 1. Code Generation
 The file config.properties is used to configure the generate code \
 Configure the database to generate code, change the corresponding database information for the application that is coding.
-   ```
-   spring.datasource.url=jdbc:oracle:thin:@10.60.157.9:1521:dbpt
-   spring.datasource.username=app
-   spring.datasource.password=app#123
-   ```
+```properties
+    spring.datasource.url=jdbc:oracle:thin:@10.60.157.9:1521:dbpt
+    spring.datasource.username=app
+    spring.datasource.password=app#123
+```
 Configure the generated code directory path
-   ```
-   src.url.create.code
-   ```
+```properties
+    src.url.create.code
+```
 Define class and methods to generate in file template.json
 ```
-
-
 className: Name of the class you want to create
 desc: Describe in detail information about the class you want to create, what business function the class performs
 listMethod: List of Methods in the class to create
@@ -53,49 +51,47 @@ listMethod: List of Methods in the class to create
     "count": Set the value to 1 to return a list of data and count. If not set, the default only returns list data,
     "params": Declare the parameters passed in from the client,
     "jpa": Configure = true so that gen according to JPA will generate gen according to SQL Native command (Note that simple sql must use gen according to JPA)
-
 ```
 Example
-   ```
-
-    {
-       "className": "Employees",
-       "desc": "Employee list manipulation class",
-       "listMethod": [
-           {
-               "type": "get",
-               "name": "getEmployees",
-               "value": "/v1/employees",
-               "sql": "SELECT * FROM HR_EM                                                                                                                                                                                                                  PLOYEES WHERE (:employeeId is null or EMPLOYEE_ID = :employeeId ) AND (:fullName is null or FULL_NAME LIKE %:fullName%)",
-               "params":["employeeId","fullName"],
-               "desc": "Get employee information",
-               "count": 1,
-               "jpa": true
-           }
-       ]
-    }
-   ```
+```json
+{
+   "className": "Employees",
+   "desc": "Employee list manipulation class",
+   "listMethod": [
+       {
+           "type": "get",
+           "name": "getEmployees",
+           "value": "/v1/employees",
+           "sql": "SELECT * FROM HR_EM                                                                                                                                                                                                                  PLOYEES WHERE (:employeeId is null or EMPLOYEE_ID = :employeeId ) AND (:fullName is null or FULL_NAME LIKE %:fullName%)",
+           "params":["employeeId","fullName"],
+           "desc": "Get employee information",
+           "count": 1,
+           "jpa": true
+       }
+   ]
+}
+```
 Execute generate code:
 ```
-   Run main function in file MainGenCode
+Run main function in file MainGenCode
 ```
 ### 2. Common functions in class Utils
 The functions that will be shared are written in this class
 ````
-    - Check if the file is valid
-        boolean isValid = Utils.checkFileValid(fileName, file, maxFileSizeMb);
+- Check if the file is valid
+    boolean isValid = Utils.checkFileValid(fileName, file, maxFileSizeMb);
 ````
 
 ### 3. Declare the error code and return the error code to the client
-````
-    vn.com.viettel.utils.ErrorApp : The class defines the error codes. Declare more error codes here
-    Returns an error code to the client using the ResponseUtils class with the method getResponseEntity(ErrorApp errorApp, HttpStatus HttpStatus)
-````
+```java
+vn.com.viettel.utils.ErrorApp : The class defines the error codes. Declare more error codes here
+Returns an error code to the client using the ResponseUtils class with the method getResponseEntity(ErrorApp errorApp, HttpStatus HttpStatus)
+```
 ### 4. Configure authentication bypass APIs (public APIs)
-````
-    permission.ignore.url = /api/v1/public/config;/api/v1/public/config/**;
-    Where /api/v1/public/config and api prefixes /api/v1/public/config are API URIs that need to be public````
-````
+```properties
+permission.ignore.url = /api/v1/public/config;/api/v1/public/config/**;
+Where /api/v1/public/config and api prefixes /api/v1/public/config are API URIs that need to be public
+```
 ### 5.Signing digital certificates from USB
 #### 5.1: Declare error codes, common functions, lib
 ```java
@@ -169,7 +165,7 @@ The functions that will be shared are written in this class
 ```
 
 #### 5.2: Get the file hash and declare the initialization of the digital signature system
-````
+```java
     Integer statusCheckCert = Utils.checkCer("Cert Base String");
     if (statusCheckCert == 1) {
         SignerInfo signerInfo = new SignerInfo();
@@ -199,9 +195,9 @@ The functions that will be shared are written in this class
     } else {
         //Notify the client of the error code
     }
-````
+```
 #### 5.3: Attach digital signature to PDF file
-````
+```java
     String sessionId = "SessionId string on save";
     HttpSession session = HttpSessionCollector.find(sessionId);
     SoftSign softSign = (SoftSign) session.getAttribute("signObject");
@@ -212,9 +208,9 @@ The functions that will be shared are written in this class
         System.out.println("Append signature");
         System.out.println(ex);
     }
-````
+```
 ### 6. Instructions for implementing cache on spring service
-   ```
+   ```java
    public class CityService {
    
        @Autowired
@@ -259,7 +255,7 @@ The functions that will be shared are written in this class
 ![img_1.png](docs/image/2.png)
 
 #### 7.1 Each service, which comes with its own database (database per service pattern), needs to create an OUTBOX_EVENT table:
-   ```
+   ```sql
    CREATE TABLE IF NOT EXISTS outbox_event
     (
         id             BINARY(16) PRIMARY KEY,           -- The id of the event, which can be used by consumers to detect duplicate events
@@ -273,7 +269,7 @@ The functions that will be shared are written in this class
    ```
 
 All outbox events should inherit from the following class
-   ```
+   ```java
    @JsonIgnoreProperties(ignoreUnknown = true)
    @JsonTypeInfo(use = JsonTypeInfo.Id.MINIMAL_CLASS, property = "clazz")
    public class ExportedEvent<T> implements Serializable {
@@ -287,7 +283,7 @@ All outbox events should inherit from the following class
    }
    ```
 For example, an event would look like this:
-   ```
+   ```java
    public class CityCreatedEvent extends ExportedEvent<City> {
        private static final String TYPE = "CITY_CREATED";
    
@@ -308,7 +304,7 @@ For example, an event would look like this:
    ```
 
 #### 7.2 Producer event
-   ```
+   ```java
    @Autowired
    OutboxEventSender event;
    
@@ -330,7 +326,7 @@ Example of data newly added to the OUTBOX_EVENT table:
 With aggregate_type = City, on Kafka there will be a corresponding topic: outbox.event.City
 As mentioned above aggregate_id is used to inject bulletins into the topic partition if the topic is set up with more than 1 partition.
 Message payload in a message in topic outbox.event.City
-   ```
+   ```json
    {
        "payload":"{\"id\":50,\"name\":\"HaNoi\",\"population\":0}",
        "id":"8894c9445b3f4c76879014cdb8fe120b",
@@ -343,7 +339,7 @@ Message payload in a message in topic outbox.event.City
 #### 7.4 Receive and handle events
 Register to receive events on the topic outbox.event.City,
 When receiving event, receiver will pass ApplicationEventPublisher to publishEvent, handlers will receive and handle this event.
-   ```
+   ```java
    @EnableBinding(CityOutboxEventReceiver.Processor.class)
    public class CityOutboxEventReceiver {
    
