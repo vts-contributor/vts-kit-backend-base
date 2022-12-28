@@ -267,6 +267,7 @@ def buildPushCommit() {
 		}
 	}
 
+<<<<<<< HEAD
     // remove 2 stage
 
 	// stage("Package and build docker image") {
@@ -275,12 +276,23 @@ def buildPushCommit() {
 	// 	}
 	// }
 
+=======
+	// stage("Package and build docker image") {
+	// 	node("${env.node_slave}") {
+	// 		buildProject("PUSH")
+	// 	}
+	// }
+
+>>>>>>> 272e1cd7901e17c672ba6e97b513b50dec2db03b
 	// stage("Deploy to Server Test") {
 	// 	node("${env.node_slave}") {
 	// 		deployProject("PUSH")
 	// 	}
 	// }
+<<<<<<< HEAD
 	//
+=======
+>>>>>>> 272e1cd7901e17c672ba6e97b513b50dec2db03b
 
 	currentBuild.result = "SUCCESS"
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Back End Template
 - [Quy định về các convention trong project](#I.-Quy-định-về-các-convention-trong-project)
     - [Quy hoạch package trong project](#1-Quy-hoạch-package-trong-project)
@@ -35,199 +36,161 @@
       1. Thêm mới một khách hàng
          Method POST
          Naming api : $HOST/api/v1/customers
+=======
+![[viettel-logo]][logo-vt-url]
 
-      2. Tìm kiếm thông tin khách hàng
-         Method GET
-         Naming api : $HOST/api/v1/customers
-      
-      3. Lấy thông tin chi tiết một khách hàng theo customerId trong đó customerId là ID của KH trong bảng Customer
-         Method GET
-         Naming api: $HOST/api/v1/customers/{customerId}
-      
-      4. Cập nhật thông tin cho một khách hàng theo customerId
-         Method PUT
-         Naming api: $HOST/api/v1/customers/{customerId}
-      
-      5. Xóa thông tin một khách hàng theo customerId
-         Method DELETE
-         Naming api: $HOST/api/v1/customers/{customerId}
-````
-### 3 Cách comment commit theo https://www.conventionalcommits.org/en/v1.0.0/
-````
-      Mục đích: sau khi xóa nhánh phát triển, fix lỗi logs vẫn còn, và có thể thực hiện các chức năng mở rộng theo định đang đầu logs, ngoài ra còn hỗ trợ tìm kiếm nhanh.
-      Cấu trúc:
-      <type>[scope]: <description>
-      [optional body]
-      -	type: Sử dụng các từ khóa sau để mô tả nội dung làm.
-           feat: thêm một feature
-           fix: fix bug cho hệ thống, vá lỗi trong codebase
-           refactor: sửa code nhưng không fix bug cũng không thêm feature hoặc đôi khi bug cũng được fix từ việc refactor.
-           docs: thêm/thay đổi document
-           chore: những sửa đổi nhỏ nhặt không liên quan tới code
-           style: những thay đổi không làm thay đổi ý nghĩa của code như thay đổi css/ui chẳng hạn.
-           perf: code cải tiến về mặt hiệu năng xử lý
-           vendor: cập nhật version cho các dependencies, packages.
-      -	description: là mô tả ngắn về những gì sẽ bị sửa đổi trong commit đấy
-      -	body: là mô tả dài và chi tiết hơn, cần thiết khi description chưa thể nói rõ hết được, có thể thêm phần ghi chú bằng các keyword
-````
-### 4 Cách đặt tên nhánh
-````
-      3.1 Nhánh master: nhánh chính chứa source code ổn định, đã được kiểm tra và có thể triển khai lên production. 
-      Các kiểm tra cuối cùng sẽ được kiểm thử trên nhánh master phục vụ tích hợp trước triển khai.
+# VTS KIT BACKEND BASE
+- [Built-in Feature](#I.-Built-in-Feature)
+    - [Code Generation](#1.-Code-Generatione)
+    - [Common functions in class Utils](#2.-Common-functions-in-class-Utils)
+    - [Declare the error code and return the error code to the client](#3.-Declare-the-error-code-and-return-the-error-code-to-the-client)
+    - [Configure authentication bypass APIs (public APIs)](#4.-Configure-authentication-bypass-APIs-(-public-APIs-))
+    - [Signing digital certificates from USB](#5.-Signing-digital-certificates-from-USB)
+        - [Declare error codes, common functions, lib](#5.1-Declare-error-codes,-common-functions,-lib)
+        - [Get the file hash and declare the initialization of the digital signature system](#5.2-Get-the-file-hash-and-declare-the-initialization-of-the-digital-signature-system)
+        - [Attach digital signature to PDF file](#5.3-Attach-digital-signature-to-PDF-file)
+    - [Instructions for implementing cache on spring service](#6.-Instructions-for-implementing-cache-on-spring-service)
+    - [Instructions for implementing outbox events](#7.-Instructions-for-implementing-outbox-events)
+- [ELK STACK system integration guide]()
+- [Addition feature]()
+    - [Integration Maria DB](https://github.com/vts-contributor/vts-kit-ms-maria-data.git)
+    - [Integration Mongo DB](https://github.com/vts-contributor/vts-kit-ms-mongo-data.git)
+    - [Integration MinIO](https://github.com/vts-contributor/vts-kit-ms-minio-integrated.git)
+    - [Integration Keycloak Auth](https://github.com/vts-contributor/vts-kit-ms-keycloak-auth.git)
+    - [Integration Kafka](https://github.com/vts-contributor/vts-kit-ms-kafka-integrated.git)
+    - [Integration Elasticsearch](https://github.com/vts-contributor/vts-kit-ms-elasticsearch-data.git)
+    - [Integration Kong Ingress Controller](//https://github.com/vts-contributor/vts-kit-kong-ingress-controller.git)
+    - [Redis Caching](https://github.com/vts-contributor/vts-kit-ms-redis-cache.git)
+>>>>>>> 272e1cd7901e17c672ba6e97b513b50dec2db03b
 
-      3.2 Nhánh develop: nhánh chính chứa source code mới nhất. Nhánh phục vụ quá trình phát triển của developer. 
-      Tất cả các thay đổi mới nhất sẽ được push/merge lên nhánh develop phục vụ quá trình phát triển liên tục tích hợp CI/CD
-      
-      3.3 Feature branches: các nhánh hỗ trợ phục vụ quá trình phát triển
-         Checkout từ: develop
-         Merge vào: develop
-         Đặt  tên:  [feature]/[Email  Nhân viên  phát  triển]-[Chức năng phát triển] 
-         Ví dụ: feature/[duybvk]-manage-employees
-         Lưu ý: Tên feature không sử dụng tiếng việt và không chứa dấu cách dấu cách
-      Khi phát triển một tính năng mới, một nhánh feature sẽ được tạo từ source code mới nhất của nhánh develop, nhằm tách biệt với các tính năng đang phát triển khác. 
-      Sau đó được merge vào nhánh develop khi đã sẵn sàng để test phục vụ tích hợp CI/CD trên môi trường phát triển
-      
-      3.4 Hotfix branches:
-         Checkout từ: master
-         Merge vào: develop và master
-         Đặt tên: hotfix/[chức năng hotfix] ví dụ: hotfix/opt-error
-      Khi có một bug nghiêm trọng trên bản production cần được giải quyết ngay lập tức, một hotfix branch sẽ được tách ra từ master
-      Sau đó merge vào lại cả master và develop để ngăn lỗi xảy ra ở những lần release sau.
-````
-## II. Hướng dẫn lập trình và sử dụng gen code và các hàm có sẵn
 
-### 1. Import libs
-Thực hiện copy thư mục "vn" ở trong thư mục Libs vào MAVEN\Repository
+## I. Built-in Feature
 
-Hoặc cài lib local qua lênh sau. Bật command line tại thư mục Libs và copy lệnh sau:
-````
-mvn install:install-file -Dfile=vts-kit-backend-core-jpa-1.0-RELEASE.jar -DgroupId=vn.com.viettel.core -DartifactId=vts-kit-backend-core-jpa -Dversion=1.0-RELEASE -Dpackaging=jar
-````
 
-Nếu sử dụng keycloak để xác thực thì cài lib
+### 1. Code Generation
+The file config.properties is used to configure the generate code \
+Configure the database to generate code, change the corresponding database information for the application that is coding.
+```properties
+    spring.datasource.url=jdbc:oracle:thin:@10.60.157.9:1521:dbpt
+    spring.datasource.username=app
+    spring.datasource.password=app#123
+```
+Configure the generated code directory path
+```properties
+    src.url.create.code
+```
+Define class and methods to generate in file template.json
+```
+className: Name of the class you want to create
+desc: Describe in detail information about the class you want to create, what business function the class performs
+listMethod: List of Methods in the class to create
+    "type":"post": Type of request method ("get", "post", "put", "delete"),
+    "name": Definition method name,
+    "value":"/customers/{customerId}/contracts": Information about API URI,
+    "sql": Definition of SQL to get data (if any), the parameters to be passed are written in ":TEN_PARAM_1", these variables can be passed from the Client to get the data,
+    "count": Set the value to 1 to return a list of data and count. If not set, the default only returns list data,
+    "params": Declare the parameters passed in from the client,
+    "jpa": Configure = true so that gen according to JPA will generate gen according to SQL Native command (Note that simple sql must use gen according to JPA)
+```
+Example
+```json
+{
+   "className": "Employees",
+   "desc": "Employee list manipulation class",
+   "listMethod": [
+       {
+           "type": "get",
+           "name": "getEmployees",
+           "value": "/v1/employees",
+           "sql": "SELECT * FROM HR_EM                                                                                                                                                                                                                  PLOYEES WHERE (:employeeId is null or EMPLOYEE_ID = :employeeId ) AND (:fullName is null or FULL_NAME LIKE %:fullName%)",
+           "params":["employeeId","fullName"],
+           "desc": "Get employee information",
+           "count": 1,
+           "jpa": true
+       }
+   ]
+}
+```
+Execute generate code:
+```
+Run main function in file MainGenCode
+```
+### 2. Common functions in class Utils
+The functions that will be shared are written in this class
 ````
-mvn install:install-file -Dfile=vts-kit-backend-core-keycloak-1.0-RELEASE.jar -DgroupId=vn.com.viettel.core -DartifactId=vts-kit-backend-core-keycloak -Dversion=1.0-RELEASE -Dpackaging=jar
-````
-
-Nếu không sử dụng keycloak để xác thực thì cài lib
-````
-mvn install:install-file -Dfile=vts-kit-backend-core-1.0-RELEASE.jar -DgroupId=vn.com.viettel.core -DartifactId=vts-kit-backend-core -Dversion=1.0-RELEASE -Dpackaging=jar
-````
-
-### 2. Thực hiện gen code
-File config.properties dùng để cấu hình gen code
-Cấu hình database để gen code, thay đổi thông tin database tương ứng cho ứng dụng đang code
-   ```
-   spring.datasource.url=jdbc:oracle:thin:@10.60.157.9:1521:dbpt
-   spring.datasource.username=app
-   spring.datasource.password=app#123
-   ```
-Cấu hình đường dẫn thư mục code được gen ra
-   ```
-   src.url.create.code
-   ```
-
-    Định nghĩa class và các phương thức cần gen trong file template.json
-    Trong đó:
-        className: Là tên của class muốn tạo 
-        desc: Mô tả chi tiết thông tin về class muốn tạo, class thực hiện cho chức năng nghiệp vụ gì
-        listMethod: Danh sách Method trong class cần tạo
-            "type":"post": Loại request method ("get", "post", "put", "delete")
-            "name": Tên phương thức định nghĩa
-            "value":"/customers/{customerId}/contracts": Thông tin về URI API
-            "sql": Định nghĩa SQL lấy dữ liệu (nếu có), các tham số cần truyền vào viết theo ":TEN_PARAM_1", các biến này có thể truyền từ Client để lấy dữ liệu
-            "count": Set giá trị là 1 để trả về list data and count. Nếu không set mặc định chỉ trả về list data
-            "params": Khai báo các tham số truyền vào từ client,
-            "jpa": Cấu hình = true để gen theo JPA ngược lại sẽ gen theo lệnh SQL Native ( Chú ý các sql đơn giản phải sử dụng gen theo JPA )
-    Ví dụ
-   ```
-   {
-       "className": "Employees",
-       "desc": "Lớp thao tác danh sach nhan vien",
-       "listMethod": [
-           {
-               "type": "get",
-               "name": "getEmployees",
-               "value": "/v1/employees",
-               "sql": "SELECT * FROM HR_EMPLOYEES WHERE (:employeeId is null or EMPLOYEE_ID = :employeeId ) AND (:fullName is null or FULL_NAME LIKE %:fullName%)",
-               "params":["employeeId","fullName"],
-               "desc": "Lấy thông tin nhân viên",
-               "count": 1,
-               "jpa": true
-           }
-       ]
-   }
-   ```
-
-    Thực hiện gen code: chạy hàm main trong file MainGenCode
-
-### 3. Các hàm common trong class Utils: các hàm dùng chung được viết tại class này
-````
-    - Kiểm tra file xem có hợp lệ không
-        boolean isValid = Utils.checkFileValid(fileName, file, maxFileSizeMb);
+- Check if the file is valid
+    boolean isValid = Utils.checkFileValid(fileName, file, maxFileSizeMb);
 ````
 
-### 4. Khai báo mã lỗi và trả mã lỗi về cho client
-````
-    vn.com.viettel.utils.ErrorApp : Class định nghĩa các mã lỗi. Khai báo thêm mã lỗi ở đây
-    Trả về mã lỗi cho client sử dụng class ResponseUtils với method getResponseEntity(ErrorApp errorApp, HttpStatus httpStatus)
-````
-### 5. Cấu hình các API bỏ qua xác thực (API public)
-````
-    permission.ignore.url = /api/v1/public/config;/api/v1/public/config/**;
-    Trong đó /api/v1/public/config và các api có prefix /api/v1/public/config là các URI API cần được public
-````
-### 6.Thực hiện ký chứng thư số từ USB gồm 3 bước
-#### 6.1 Bước 1: Khai các mã lỗi, hàm common và lib
-`````
-    - Khai báo Constants trong class vn.com.viettel.utils.Constants
+### 3. Declare the error code and return the error code to the client
+```java
+vn.com.viettel.utils.ErrorApp : The class defines the error codes. Declare more error codes here
+Returns an error code to the client using the ResponseUtils class with the method getResponseEntity(ErrorApp errorApp, HttpStatus HttpStatus)
+```
+### 4. Configure authentication bypass APIs (public APIs)
+```properties
+permission.ignore.url = /api/v1/public/config;/api/v1/public/config/**;
+Where /api/v1/public/config and api prefixes /api/v1/public/config are API URIs that need to be public
+```
+### 5.Signing digital certificates from USB
+#### 5.1: Declare error codes, common functions, lib
+```java
+    // Declare Constant in class vn.com.viettel.utils.Constants
     public interface SIGN_CODE {
-        Integer SUCCESS = 1;        //Thành công
-        Integer CERT_EXPIRE = 2;    //Lỗi cert hết hạn
-        Integer NOT_FOUND = 3;      //Lỗi cert không tồn tại
+        Integer SUCCESS = 1;        //Successful
+        Integer CERT_EXPIRE = 2;    //Error cert expired
+        Integer NOT_FOUND = 3;      //Error cert does not exist
+    }
+```
+```java
+    // Declare Common function in class vn.com.viettel.utils.Utils
+    /**
+     * Remove hours in date
+     *
+     * @param dateCv
+     * @return
+     */
+    public static Date dateSort(Date dateCv) {
+        Date date = null;
+        String strDate = dateShow(dateCv, false);
+        try {
+
+            date = new SimpleDateFormat("dd/MM/yyyy").parse(strDate);
+        } catch (ParseException ex) {
+            LOGGER.error("==========datnv5: dateSort null", ex);
+        }
+        return date;
+    }
+```
+
+```java
+    
+    /**
+     * Check digital certificate
+     * @param strCertificate
+     * @return
+     */
+    public static Integer checkCer(String strCertificate) {
+        Date now = new Date();
+        now = dateSort(now);
+        if (strCertificate != null && strCertificate.trim().length() > 0) {
+            // Tao doi tuong ky mem
+            X509Certificate x509Cert = CertUtils.getX509Cert(strCertificate);
+            if (now.compareTo(dateSort(x509Cert.getNotAfter())) > 0
+                    || now.compareTo(dateSort(x509Cert.getNotBefore())) < 0) {
+                return Constants.SIGN_CODE.CERT_EXPIRE;
+            } else {
+                return Constants.SIGN_CODE.SUCCESS;
+            }
+        } else {
+            return Constants.SIGN_CODE.NOT_FOUND;
+        }
     }
 
-    - Khai báo hàm Common trong class vn.com.viettel.utils.Utils
-        /**
-         * loai bo gio trong date
-         *
-         * @param dateCv
-         * @return
-         */
-        public static Date dateSort(Date dateCv) {
-            Date date = null;
-            String strDate = dateShow(dateCv, false);
-            try {
-    
-                date = new SimpleDateFormat("dd/MM/yyyy").parse(strDate);
-            } catch (ParseException ex) {
-                LOGGER.error("==========datnv5: dateSort null", ex);
-            }
-            return date;
-        }
-    
-        /**
-         * kiem tra chung thu so
-         * @param strCertificate
-         * @return
-         */
-        public static Integer checkCer(String strCertificate) {
-            Date now = new Date();
-            now = dateSort(now);
-            if (strCertificate != null && strCertificate.trim().length() > 0) {
-                // Tao doi tuong ky mem
-                X509Certificate x509Cert = CertUtils.getX509Cert(strCertificate);
-                if (now.compareTo(dateSort(x509Cert.getNotAfter())) > 0
-                        || now.compareTo(dateSort(x509Cert.getNotBefore())) < 0) {
-                    return Constants.SIGN_CODE.CERT_EXPIRE;
-                } else {
-                    return Constants.SIGN_CODE.SUCCESS;
-                }
-            } else {
-                return Constants.SIGN_CODE.NOT_FOUND;
-            }
-        }
-    - Khai báo thêm lib trong file pom.xml
+```
+
+```xml
+    //Declare more lib in file pom.xml
     <dependency>
         <groupId>com.itextpdf</groupId>
         <artifactId>itextpdf</artifactId>
@@ -238,54 +201,56 @@ Cấu hình đường dẫn thư mục code được gen ra
         <artifactId>viettelsign</artifactId>
         <version>1.0-RELEASE</version>
     </dependency>
-`````
-#### 6.2 Bước 2: Thực hiện lấy hash file và khai báo khởi tạo hệ chữ ký số. Xem code mẫu dưới
-````
-    Integer statusCheckCert = Utils.checkCer("chuoi base cert");
+
+```
+
+#### 5.2: Get the file hash and declare the initialization of the digital signature system
+```java
+    Integer statusCheckCert = Utils.checkCer("Cert Base String");
     if (statusCheckCert == 1) {
         SignerInfo signerInfo = new SignerInfo();
         signerInfo.setUserName("Test Sign");
         signerInfo.setUserId(1L);
-        String strFilePdf = "duong dan file pdf can ky";
-        String strFilePdfSigned = "duong dan file pdf da ky";
+        String strFilePdf = "Pdf File Path To Sign";
+        String strFilePdfSigned = "Signed Pdf File Path";
         UsbSign usbSign = new UsbSign(signerInfo, strFilePdf, strFilePdfSigned, false);
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("location", "ETC GROUP");
         String strLocation = jsonObj.toString();
         try {
-            //danh chuoi hash cua file pdf gom  2 phan tu: so 1 la hash, so 2 la serial number
+            //Type the hash of the pdf file including 2 parts: number 1 is hash, number 2 is serial number
             List<String> listHashInfo = usbSign.getDigest("strCert", "", strLocation);
-            //TODO: thuc hien luu lai softSign vao session key
+            //TODO: Save the softSign in the session ke
     
-            String sessionId = "Chuoi sessionid lay tu HttpServletRequest";
+            String sessionId = "SessionId string retrieved from HttpServletRequest";
             HttpSession session = req.getSession(true);
             session.setAttribute("signObject", usbSign);
-            // Dat session vao bo quan ly
+            // Put the session in the manager
             HttpSessionCollector.putSession(sessionId, session);
         } catch (Exception ex) {
-            //"Khong co hash file:"
+            //"Hash file doesn't exist:"
             System.out.println("signFileExtentCa");
             System.out.println(ex);
         }
     } else {
-        //thong bao ma loi cho client
+        //Notify the client of the error code
     }
-````
-#### 6.3 Bước 3: Thực hiện attach chữ ký số vào file PDF. Xem code mẫu dưới
-````
-    String sessionId = "Chuoi sessionId luc luu lai";
+```
+#### 5.3: Attach digital signature to PDF file
+```java
+    String sessionId = "SessionId string on save";
     HttpSession session = HttpSessionCollector.find(sessionId);
     SoftSign softSign = (SoftSign) session.getAttribute("signObject");
     try {
-        softSign.appendSignature("Chuoi chu ky so sau khu thuc hien ky");
+        softSign.appendSignature("String of digital signatures after signing");
     } catch (Exception ex) {
-        //"Khong co hash file:"
+        //"Hash file doesn't exist"
         System.out.println("Append signature");
         System.out.println(ex);
     }
-````
-### 7. Hướng dẫn thực hiện cache trên spring service
-   ```
+```
+### 6. Instructions for implementing cache on spring service
+   ```java
    public class CityService {
    
        @Autowired
@@ -317,33 +282,34 @@ Cấu hình đường dẫn thư mục code được gen ra
            cityRepository.delete(city);
        }
    }
-   ```
-    Khi findById được gọi, ví dụ với tham số id = 1; Trước tiên tìm trong cache có object với key là city::1
-     o	Nếu có object trong redis, trả kết quả và không cần truy vấn database
-     o	Nếu không có object trong redis, truy vấn database lấy object. Khi lấy được, set lại object vào cache với key cũng là city::1
-    Khi save(city) được gọi, ngoài việc lưu xuống db, cũng đồng thời lưu vào redis object đó theo key là city::{object_id}
-    Khi delete(city) được gọi, ngoài việc xóa ở db, cũng đồng thời gọi lệnh xóa city::{object_id} ở redis.
 
-### 8. Hướng dẫn thực hiện outbox event
+    When findById is called, for example with parameter id = 1; First look in the cache for an object with the key city::1
+          o If there is an object in redis, return the result and do not need to query the database
+          o If there is no object in redis, query the database to get the object. When it is obtained, reset the object into the cache with the key also being city::1
+    When save(city) is called, in addition to saving it to the db, it also saves the redis object under the key city::{object_id}
+    When delete(city) is called, in addition to deleting in db, also call delete command city::{object_id} in redis
+```
 
-![img_1.png](2.png)
+### 7. Instructions for implementing outbox events
 
-#### 8.1 Mỗi service, đi kèm một database của chính nó (database per service pattern), cần tạo một bảng OUTBOX_EVENT:
-   ```
+![img_1.png](docs/image/2.png)
+
+#### 7.1 Each service, which comes with its own database (database per service pattern), needs to create an OUTBOX_EVENT table:
+   ```sql
    CREATE TABLE IF NOT EXISTS outbox_event
     (
-        id             BINARY(16) PRIMARY KEY,           -- Id của event, có thể được sử dụng bởi consumer để detect duplicate event
-        timestamp      BIGINT (15) UNSIGNED NOT NULL,    -- Thời gian phát sinh của event, unixtime by ms
-        clazz          VARCHAR(255) NOT NULL,            -- Cho phép java backend sử dụng để Deserializable json event trong kafka thành java class
-        type           VARCHAR(255) NOT NULL,            -- Type of event,ví dụ ORDER_CREATED
-        aggregate_type VARCHAR(255) NOT NULL,            -- The type of the aggregate root to which a given event is related. Ví dụ, ORDER_CREATED thì agg_type là Order. Trường này được sử dụng để route event tới topic tương ứng trên kafka. Vì vậy sẽ có 1 topic cho tất cả các event liên quan tới order, 1 topic cho customer-related events.
-        aggregate_id   VARCHAR(255) NOT NULL,            -- The id of the aggregate root, được sử dụng để đưa event vào kafka partition  (nếu setup topic có nhiều partition)
+        id             BINARY(16) PRIMARY KEY,           -- The id of the event, which can be used by consumers to detect duplicate events
+        timestamp      BIGINT (15) UNSIGNED NOT NULL,    -- Event generation time, unix time by ms
+        clazz          VARCHAR(255) NOT NULL,            -- Allow java backend to use deserializable json event in kafka to java class
+        type           VARCHAR(255) NOT NULL,            -- Type of event, for example ORDER_CREATED
+        aggregate_type VARCHAR(255) NOT NULL,            -- The type of the aggregate root to which a given event is related. For example, ORDER_CREATED then agg_type is Order. This field is used to route the event to the corresponding topic on kafka. So there will be 1 topic for all order related events, 1 topic for customer-related events.
+        aggregate_id   VARCHAR(255) NOT NULL,            -- The id of the aggregate root, used to inject events into the kafka partition (if the topic setup has multiple partitions)
         payload        LONGTEXT NOT NULL                 -- Event contents (JSON structure)
     );
    ```
 
-Tất cả các outbox event nên kế thừa từ class sau
-   ```
+All outbox events should inherit from the following class
+   ```java
    @JsonIgnoreProperties(ignoreUnknown = true)
    @JsonTypeInfo(use = JsonTypeInfo.Id.MINIMAL_CLASS, property = "clazz")
    public class ExportedEvent<T> implements Serializable {
@@ -356,8 +322,8 @@ Tất cả các outbox event nên kế thừa từ class sau
        long timestamp;
    }
    ```
-Ví dụ một event sẽ như sau
-   ```
+For example, an event would look like this:
+   ```java
    public class CityCreatedEvent extends ExportedEvent<City> {
        private static final String TYPE = "CITY_CREATED";
    
@@ -377,8 +343,8 @@ Ví dụ một event sẽ như sau
    }
    ```
 
-#### 8.2 Producer event
-   ```
+#### 7.2 Producer event
+   ```java
    @Autowired
    OutboxEventSender event;
    
@@ -392,15 +358,15 @@ Ví dụ một event sẽ như sau
        return createResponse;
    }
    ```
-    Hàm save (database insert) và 2 event được thêm mới vào database cùng trong một transaction.
-    Ví dụ về dữ liệu được thêm mới vào bảng OUTBOX_EVENT:
-![img.png](1.png)
+The save function (database insert) and 2 events are newly added to the database in the same transaction.\
+Example of data newly added to the OUTBOX_EVENT table:
+![img.png](docs/image/1.png)
 
-#### 8.3 Event in Apache Kafka
-Với aggregate_type = City, trên Kafka sẽ có tương ứng một topic: outbox.event.City
-Như đã nói ở trên aggregate_id được dùng để đưa bản tin vào topic partition nếu topic được được setup có nhiều hơn 1 partition.
-Message payload trong một message ở topic outbox.event.City
-   ```
+#### 7.3 Event in Apache Kafka
+With aggregate_type = City, on Kafka there will be a corresponding topic: outbox.event.City
+As mentioned above aggregate_id is used to inject bulletins into the topic partition if the topic is set up with more than 1 partition.
+Message payload in a message in topic outbox.event.City
+   ```json
    {
        "payload":"{\"id\":50,\"name\":\"HaNoi\",\"population\":0}",
        "id":"8894c9445b3f4c76879014cdb8fe120b",
@@ -410,10 +376,10 @@ Message payload trong một message ở topic outbox.event.City
    }
    ```
 
-#### 8.4 Nhận và xử lý event
-Đăng ký nhận event trên topic outbox.event.City,
-Khi nhận được event, receiver sẽ thông qua ApplicationEventPublisher để publishEvent, các handler sẽ nhận và xử lý event này
-   ```
+#### 7.4 Receive and handle events
+Register to receive events on the topic outbox.event.City,
+When receiving event, receiver will pass ApplicationEventPublisher to publishEvent, handlers will receive and handle this event.
+   ```java
    @EnableBinding(CityOutboxEventReceiver.Processor.class)
    public class CityOutboxEventReceiver {
    
@@ -435,6 +401,7 @@ Khi nhận được event, receiver sẽ thông qua ApplicationEventPublisher đ
        }
    }
    ```
+<<<<<<< HEAD
 ## 3. Hướng dẫn tích hợp hệ thống ELK STACK
 ### Cài đặt agent cho ứng dụng java, tomcat chạy trên K8s
 Đối với hệ thống chạy k8s: Cần rebuild lại image.\
@@ -442,11 +409,23 @@ Khi nhận được event, receiver sẽ thông qua ApplicationEventPublisher đ
           để buil lại image. Có thể download tại: [Elastic-apm-agent-1.29.0](#http://10.254.144.164:8081/repository/maven-public/com/atviettelsolutions/vts-kit-elastic-apm-agent/1.29.0/vts-kit-elastic-apm-agent-1.29.0.jar)
 - Bước 2: Thêm command sau vào Dockerfile: COPY ./apm-agent /apm-
 - Bước 3: Sửa image mới và thêm biến môi trường trong k8s deployment
+=======
+[logo-vt-url]: docs/image/logo-vt.svg
+
+## II. ELK STACK system integration guide
+### Install agent for java application, tomcat running on K8s
+For systems running k8s: Need to rebuild image.
+- Step 1: Copy the file elastic-apm-agent-1.29.0.jar to the apm-agent folder in the project to rebuild the image. Downloadable at: [Elastic-apm-agent-1.29.0]((#http://10.254.144.164:8081/repository/maven-public/com/atviettelsolutions/vts-kit-elastic-apm-agent/1.29.0/vts-kit-elastic-apm-agent-1.29.0.jar))
+- Step 2: Add the following command to the Dockerfile: COPY ./apm-agent /apm-
+- Step 3: Edit new image and add environment variable in k8s deployment
+
+>>>>>>> 272e1cd7901e17c672ba6e97b513b50dec2db03b
 ```yaml
 - name: _JAVA_OPTIONS
   value: -Xmx5g -XX:+UseG1GC -Delastic.apm.service_name=<service_name> -
 Delastic.apm.server_urls=http://10.254.145.240:8086/apm-server -javaagent:/apm-agent/elastic-apm-agent-1.29.0.jar
 ```
+<<<<<<< HEAD
 Lưu ý: Tham số -Xmx5g -XX:+UseG1GC cấu hình tùy thuộc vào tài nguyên sẵn 
 có
 - Bước 4: Restart lại ứng dụng.
@@ -455,3 +434,15 @@ có
 động đã có tiến trình apm chưa).
     - Truy cập dashboard ELK xem hệ thống đã được add lên chưa.
     - Kiểm tra nghiệp vụ ứng dụng xem có lỗi không
+=======
+
+Note: The -Xmx5g -XX:+UseG1GC parameter is configurable depending on resource availability.
+
+- Step 4: Restart the application.
+- Step 5: Check after installation.
+    - Run the command ""ps -ef | grep tomcat"" (Check if the active tomcat process already has apm process).
+    - Access the ELK dashboard to see if the system has been added.
+    - Check the application business for errors
+
+
+>>>>>>> 272e1cd7901e17c672ba6e97b513b50dec2db03b
