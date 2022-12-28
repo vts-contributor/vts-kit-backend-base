@@ -1,18 +1,18 @@
 ![[viettel-logo]][logo-vt-url]
 
 # VTS KIT BACKEND BASE
-- [Built-in Feature](#I.-Built-in-Feature)
-    - [Code Generation](#1.-Code-Generatione)
-    - [Common functions in class Utils](#2.-Common-functions-in-class-Utils)
-    - [Declare the error code and return the error code to the client](#3.-Declare-the-error-code-and-return-the-error-code-to-the-client)
-    - [Configure authentication bypass APIs (public APIs)](#4.-Configure-authentication-bypass-APIs-(-public-APIs-))
-    - [Signing digital certificates from USB](#5.-Signing-digital-certificates-from-USB)
-        - [Declare error codes, common functions, lib](#5.1-Declare-error-codes,-common-functions,-lib)
-        - [Get the file hash and declare the initialization of the digital signature system](#5.2-Get-the-file-hash-and-declare-the-initialization-of-the-digital-signature-system)
-        - [Attach digital signature to PDF file](#5.3-Attach-digital-signature-to-PDF-file)
-    - [Instructions for implementing cache on spring service](#6.-Instructions-for-implementing-cache-on-spring-service)
-    - [Instructions for implementing outbox events](#7.-Instructions-for-implementing-outbox-events)
-- [ELK STACK system integration guide]()
+- [Built-in Feature](#i-built-in-feature)
+    - [Code Generation](#1-code-generatione)
+    - [Common functions in class Utils](#2-common-functions-in-class-utils)
+    - [Declare the error code and return the error code to the client](#3-declare-the-error-code-and-return-the-error-code-to-the-client)
+    - [Configure authentication bypass APIs (public APIs)](#4-configure-authentication-bypass-apis-public-apis)
+    - [Signing digital certificates from USB](#5-signing-digital-certificates-from-usb)
+        - [Declare error codes, common functions, lib](#51-Declare-error-codes-common-functions-lib)
+        - [Get the file hash and declare the initialization of the digital signature system](#52-get-the-file-hash-and-declare-the-initialization-of-the-digital-signature-system)
+        - [Attach digital signature to PDF file](#53-attach-digital-signature-to-pdf-file)
+    - [Instructions for implementing cache on spring service](#6-instructions-for-implementing-cache-on-spring-service)
+    - [Instructions for implementing outbox events](#7-instructions-for-implementing-outbox-events)
+- [ELK STACK system integration guide](#ii-elk-stack-system-integration-guide)
 - [Addition feature]()
     - [Integration Maria DB](https://github.com/vts-contributor/vts-kit-ms-maria-data.git)
     - [Integration Mongo DB](https://github.com/vts-contributor/vts-kit-ms-mongo-data.git)
@@ -92,7 +92,7 @@ Returns an error code to the client using the ResponseUtils class with the metho
 permission.ignore.url = /api/v1/public/config;/api/v1/public/config/**;
 Where /api/v1/public/config and api prefixes /api/v1/public/config are API URIs that need to be public
 ```
-### 5.Signing digital certificates from USB
+### 5. Signing digital certificates from USB
 #### 5.1: Declare error codes, common functions, lib
 ```java
     // Declare Constant in class vn.com.viettel.utils.Constants
