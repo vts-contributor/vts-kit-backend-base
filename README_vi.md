@@ -326,7 +326,7 @@ Cấu hình đường dẫn thư mục code được gen ra
 
 ### 8. Hướng dẫn thực hiện outbox event
 
-![img_1.png](2.png)
+![img_1.png](docs/image/2.png)
 
 #### 8.1 Mỗi service, đi kèm một database của chính nó (database per service pattern), cần tạo một bảng OUTBOX_EVENT:
    ```
@@ -394,7 +394,7 @@ Ví dụ một event sẽ như sau
    ```
     Hàm save (database insert) và 2 event được thêm mới vào database cùng trong một transaction.
     Ví dụ về dữ liệu được thêm mới vào bảng OUTBOX_EVENT:
-![img.png](1.png)
+![img.png](docs/image/1.png)
 
 #### 8.3 Event in Apache Kafka
 Với aggregate_type = City, trên Kafka sẽ có tương ứng một topic: outbox.event.City

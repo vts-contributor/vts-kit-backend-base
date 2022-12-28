@@ -14,10 +14,6 @@ public class Constants {
     private static Map<String, String> initMap() {
         Map<String, String> map = new HashMap<>();
         map.put("username", "Tên đăng nhập");
-<<<<<<< HEAD
-        map.put("matkhau", "Mật khẩu");
-=======
->>>>>>> 23d875f1cf2032aafb4f1a7192f98fdb4d3f3e2e
         return Collections.unmodifiableMap(map);
     }
 }
