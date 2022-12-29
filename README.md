@@ -10,8 +10,8 @@
         - [Attach digital signature to PDF file](#53-attach-digital-signature-to-pdf-file)
     - [Instructions for implementing cache on spring service](#6-instructions-for-implementing-cache-on-spring-service)
     - [Instructions for implementing outbox events](#7-instructions-for-implementing-outbox-events)
-    - [Monitoring with APM](#8-elk-stack-system-integration-guide)
-- [Addition feature]()
+- [Addition feature](ii-addition-feature)
+    - [Monitoring with APM](#1-elk-stack-system-integration-guide)
     - [Integration Maria DB](https://github.com/vts-contributor/vts-kit-ms-maria-data.git)
     - [Integration Mongo DB](https://github.com/vts-contributor/vts-kit-lib-mongo-data.git)
     - [Integration MinIO](https://github.com/vts-contributor/vts-kit-ms-minio-integrated.git)
@@ -358,7 +358,8 @@ When receiving event, receiver will pass ApplicationEventPublisher to publishEve
        }
    }
    ```
-### 8. ELK STACK system integration guide
+## II. Addition feature
+### 1. ELK STACK system integration guide
 #### Install agent for java application, tomcat running on K8s
 For systems running k8s: Need to rebuild image.
 - Step 1: Copy the file elastic-apm-agent-1.29.0.jar to the apm-agent folder in the project to rebuild the image.\
