@@ -366,8 +366,8 @@ When receiving event, receiver will pass ApplicationEventPublisher to publishEve
 ## II. ELK STACK system integration guide
 ### Install agent for java application, tomcat running on K8s
 For systems running k8s: Need to rebuild image.
-- Step 1: Copy the file elastic-apm-agent-1.29.0.jar to the apm-agent folder in the project to rebuild the image. Downloadable at: [Elastic-apm-agent-1.29.0]((#http://10.254.144.164:8081/repository/maven-public/com/atviettelsolutions/vts-kit-elastic-apm-agent/1.29.0/vts-kit-elastic-apm-agent-1.29.0.jar))
-- Step 2: Add the following command to the Dockerfile: COPY ./apm-agent /apm-
+- Step 1: Copy the file elastic-apm-agent-1.29.0.jar to the apm-agent folder in the project to rebuild the image. Downloadable at: [Elastic-apm-agent-1.29.0](#http://10.254.144.164:8081/repository/maven-public/com/atviettelsolutions/vts-kit-elastic-apm-agent/1.29.0/vts-kit-elastic-apm-agent-1.29.0.jar)
+- Step 2: Add the following command to the Dockerfile: COPY ./apm-agent /apm-agent
 - Step 3: Edit new image and add environment variable in k8s deployment
 
 ```yaml
