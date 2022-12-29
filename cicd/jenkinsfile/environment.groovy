@@ -30,6 +30,7 @@ env.harborServer = ""
 env.harborFolder = ""
 
 // Git information
+env.gitlabServer= ""
 env.gitUserPassSecret = ""
 env.stagingBranch = ""
 
