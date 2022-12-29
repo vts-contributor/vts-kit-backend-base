@@ -7,26 +7,28 @@ now the basic values of a project will be collectively configured in the file: [
 .
 └── <Workspace>/
     ├── cicd/
-    │   ├── dev-build-script.sh
-    │   ├── dev-deploy-manifest.yaml
-    │   ├── dev-deploy-script.sh
-    │   ├── dev-k8s-config
-    │   ├── prod-build-script.sh
-    │   ├── prod-deploy-manifest.yaml
-    │   ├── prod-deploy-script.sh
-    │   ├── prod-k8s-config   
-    │   ├── jenkinsfile_bootstrap.groovy
-    │   ├── jenkinsfile_CD.groovy
-    │   ├── jenkinsfile_CI.groovy
-    │   ├── jenkinsfile_env.groovy
-    │   └── jenkinsfile_ultis.groovy 
-    ├── src/
-    │   └── <Javasource>
-    └── Dockerfile
+    │   ├── configs/
+    │   │   └── Dockerfile
+    │   ├── jenkinsfile/
+    │   │   ├── CD.groovy
+    │   │   ├── CI.groovy
+    │   │   ├── bootstrap.groovy
+    │   │   ├── environment.groovy
+    │   │   └── ultis.groovy 
+    │   ├── manifests/
+    │   │   ├── prod-deploy-manifest.yaml
+    │   │   └── dev-deploy-manifest.yaml
+    │   ├── scripts/
+    │   │   ├── dev-build-script.sh
+    │   │   ├── dev-deploy-script.sh
+    │   │   └── prod-deploy-script.sh
+    │   └── README.md 
+    └── src/
+        └── <Javasource>
 ```
 ### Config Environments
 #### Note 
-All environment variables can be defined in the [jenkinsfile_env.groovy](/cicd/jenkinsfile_env.groovy) file, 
+All environment variables can be defined in the [environment.groovy](/cicd/jenkinsfile/environment.groovy) file, 
 but with some particularly important information it can be defined in the config file on the jenkins server.
 
 #### Pipline script in Jenkins Server
@@ -44,11 +46,11 @@ node("<NODE_SLAVE>"){
                                                    name         : 'origin',
                                                    url          : "${env.gitlabSourceRepoHomepage}" + ".git"]]
       ]
-      jenkinsfile_bootstrap = load 'cicd/jenkinsfile_bootstrap.groovy'
+      jenkinsfile_bootstrap = load 'cicd/jenkinsfile/bootstrap.groovy'
       jenkinsfile_bootstrap.bootstrap_build()
 }
 ```
-All config at jenkins server can be consulted at: `http://10.60.156.96:8080/job/VBCS-CICD-FOLDER/job/cicdenv/job/cicdenv-ng/configure`
+All config at jenkins server can be consulted at: `http://10.60.156.96:8080/job/VTS-KIT/job/vts-kit-start/configure`
 
 #### Deploy Environments
 ```groovy
@@ -65,7 +67,7 @@ env.containerPort = "<CONTAINER PORT>"
 // Image pull secret if your repo config
 env.imagePullSecrets = "<IMAGE PULL SECRET>"
 ```
-Find out more at: [dev-deploy-manifest.yaml](/cicd/dev-deploy-manifest.yaml)
+Find out more at: [dev-deploy-manifest.yaml](/cicd/manifests/dev-deploy-manifest.yaml)
 #### Build Environments
 ```groovy
 // Image name, with prefix is url private repo
