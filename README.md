@@ -1,44 +1,3 @@
-<<<<<<< HEAD
-# Back End Template
-- [Quy định về các convention trong project](#I.-Quy-định-về-các-convention-trong-project)
-    - [Quy hoạch package trong project](#1-Quy-hoạch-package-trong-project)
-    - [Cách đặt tên các đầu API theo chuẩn restful naming](#2-Cách-đặt-tên-các-đầu-API-theo-chuẩn-restful-naming)
-    - [Cách comment commit](#3-Cách-comment-commit)
-    - [Cách đặt tên nhánh](#4-Cách-đặt-tên-nhánh)
-- [Hướng dẫn lập trình và sử dụng gen code và các hàm có sẵn](#II-Hướng-dẫn-lập-trình-và-sử-dụng-gen-code-và-các-hàm-có-sẵn)
-    - [Import libs](#1-Import-libs)
-    - [Thực hiện gen code](#2-Thực-hiện-gen-code)
-    - [Các hàm common trong class Utils](#3-Các-hàm-common-trong-class-Utils)
-    - [Khai báo mã lỗi và trả mã lỗi về cho client](#4-Khai-báo-mã-lỗi-và-trả-mã-lỗi-về-cho-client)
-    - [Cấu hình các API bỏ qua xác thực (API public)](#5-Cấu-hình-các-API-bỏ-qua-xác-thực-(API-public))
-    - [Thực hiện ký chứng thư số từ USB](#6-Thực-hiện-ký-chứng-thư-số-từ-USB)
-        - [Khai các mã lỗi, hàm common và lib](#6.1-Bước-1:-Khai-các-mã-lỗi,-hàm-common-và-lib)
-        - [Thực hiện lấy hash file và khai báo khởi tạo hệ chữ ký số](#6.2-Bước-2:-Thực-hiện-lấy-hash-file-và-khai-báo-khởi-tạo-hệ-chữ-ký-số)
-        - [Thực hiện attach chữ ký số vào file PDF.](#6.3-Bước-3:-Thực-hiện-attach-chữ-ký-số-vào-file-PDF.)
-    - [Hướng dẫn thực hiện cache trên spring service](#7-Hướng-dẫn-thực-hiện-cache-trên-spring-service)
-    - [Hướng dẫn thực hiện outbox event](#8-Hướng-dẫn-thực-hiện-outbox-event)
-- [Hướng dẫn tích hợp hệ thống ELK STACK](#3-hướng-dẫn-tích-hợp-hệ-thống-elk-stack)
-## I. Quy định về các convention trong project
-### 1 Quy hoạch package trong project
-````
-      Package vn.com.viettel.controlers:        Nơi chứa các class tầng giao tiếp với bên ngoài và handler các request từ bên ngoài tới hệ thống.
-      Package vn.com.viettel.dto:               Nơi chứa các Class Data transfer object
-      Package vn.com.viettel.services:          Nơi chứa các class xử lý nghiệp vụ
-      Package vn.com.viettel.services.jpa:      Nơi chứa các class xử lý nghiệp vụ và sử dụng JPA của spring boot để xử lý
-      Package vn.com.viettel.repositories:      Nơi chứa các class giao tiêp xử lý với database
-      Package vn.com.viettel.repositories.jpa:  Nơi chứa các class giao tiêp xử lý với database và sử dụng JPA của spring boot để xử lý
-      Package vn.com.viettel.entities:          Nơi chứa các class Java mapping với Table trong databases.
-      Package vn.com.viettel.utils:             Nơi chứa các hàm common và contants dùng chung cho project
-````
-### 2 Cách đặt tên các đầu API theo chuẩn restful naming. Tham khảo thêm https://restfulapi.net/resource-naming/
-````
-      Ví dụ cụ thể viết api cho form quản lý KH
-      1. Thêm mới một khách hàng
-         Method POST
-         Naming api : $HOST/api/v1/customers
-=======
-![[viettel-logo]][logo-vt-url]
-
 # VTS KIT BACKEND BASE
 - [Built-in Feature](#i-built-in-feature)
     - [Code Generation](#1-code-generatione)
@@ -51,17 +10,16 @@
         - [Attach digital signature to PDF file](#53-attach-digital-signature-to-pdf-file)
     - [Instructions for implementing cache on spring service](#6-instructions-for-implementing-cache-on-spring-service)
     - [Instructions for implementing outbox events](#7-instructions-for-implementing-outbox-events)
-- [ELK STACK system integration guide](#ii-elk-stack-system-integration-guide)
+    - [Monitoring with APM](#8-elk-stack-system-integration-guide)
 - [Addition feature]()
     - [Integration Maria DB](https://github.com/vts-contributor/vts-kit-ms-maria-data.git)
-    - [Integration Mongo DB](https://github.com/vts-contributor/vts-kit-ms-mongo-data.git)
+    - [Integration Mongo DB](https://github.com/vts-contributor/vts-kit-lib-mongo-data.git)
     - [Integration MinIO](https://github.com/vts-contributor/vts-kit-ms-minio-integrated.git)
-    - [Integration Keycloak Auth](https://github.com/vts-contributor/vts-kit-ms-keycloak-auth.git)
-    - [Integration Kafka](https://github.com/vts-contributor/vts-kit-ms-kafka-integrated.git)
-    - [Integration Elasticsearch](https://github.com/vts-contributor/vts-kit-ms-elasticsearch-data.git)
+    - [Integration Keycloak Auth](https://github.com/vts-contributor/vts-kit-lib-keycloak-auth.git)
+    - [Integration Kafka](https://github.com/vts-contributor/vts-kit-lib-kafka.git)
+    - [Integration Elasticsearch](https://github.com/vts-contributor/vts-kit-lib-elasticsearch.git)
     - [Integration Kong Ingress Controller](//https://github.com/vts-contributor/vts-kit-kong-ingress-controller.git)
     - [Redis Caching](https://github.com/vts-contributor/vts-kit-ms-redis-cache.git)
->>>>>>> 272e1cd7901e17c672ba6e97b513b50dec2db03b
 
 
 ## I. Built-in Feature
@@ -174,7 +132,6 @@ Where /api/v1/public/config and api prefixes /api/v1/public/config are API URIs 
         Date now = new Date();
         now = dateSort(now);
         if (strCertificate != null && strCertificate.trim().length() > 0) {
-            // Tao doi tuong ky mem
             X509Certificate x509Cert = CertUtils.getX509Cert(strCertificate);
             if (now.compareTo(dateSort(x509Cert.getNotAfter())) > 0
                     || now.compareTo(dateSort(x509Cert.getNotBefore())) < 0) {
@@ -401,40 +358,19 @@ When receiving event, receiver will pass ApplicationEventPublisher to publishEve
        }
    }
    ```
-<<<<<<< HEAD
-## 3. Hướng dẫn tích hợp hệ thống ELK STACK
-### Cài đặt agent cho ứng dụng java, tomcat chạy trên K8s
-Đối với hệ thống chạy k8s: Cần rebuild lại image.\
-- Bước 1: Copy file elastic-apm-agent-1.29.0.jar vào folder apm-agent ở project 
-          để buil lại image. Có thể download tại: [Elastic-apm-agent-1.29.0](#http://10.254.144.164:8081/repository/maven-public/com/atviettelsolutions/vts-kit-elastic-apm-agent/1.29.0/vts-kit-elastic-apm-agent-1.29.0.jar)
-- Bước 2: Thêm command sau vào Dockerfile: COPY ./apm-agent /apm-
-- Bước 3: Sửa image mới và thêm biến môi trường trong k8s deployment
-=======
-[logo-vt-url]: docs/image/logo-vt.svg
-
-## II. ELK STACK system integration guide
-### Install agent for java application, tomcat running on K8s
+### 8. ELK STACK system integration guide
+#### Install agent for java application, tomcat running on K8s
 For systems running k8s: Need to rebuild image.
-- Step 1: Copy the file elastic-apm-agent-1.29.0.jar to the apm-agent folder in the project to rebuild the image. Downloadable at: [Elastic-apm-agent-1.29.0](#http://10.254.144.164:8081/repository/maven-public/com/atviettelsolutions/vts-kit-elastic-apm-agent/1.29.0/vts-kit-elastic-apm-agent-1.29.0.jar)
+- Step 1: Copy the file elastic-apm-agent-1.29.0.jar to the apm-agent folder in the project to rebuild the image.\
+ Downloadable at: [Elastic-apm-agent-1.29.0](#http://10.254.144.164:8081/repository/maven-public/com/atviettelsolutions/vts-kit-elastic-apm-agent/1.29.0/vts-kit-elastic-apm-agent-1.29.0.jar)
 - Step 2: Add the following command to the Dockerfile: COPY ./apm-agent /apm-agent
 - Step 3: Edit new image and add environment variable in k8s deployment
 
->>>>>>> 272e1cd7901e17c672ba6e97b513b50dec2db03b
 ```yaml
 - name: _JAVA_OPTIONS
   value: -Xmx5g -XX:+UseG1GC -Delastic.apm.service_name=<service_name> -
 Delastic.apm.server_urls=http://10.254.145.240:8086/apm-server -javaagent:/apm-agent/elastic-apm-agent-1.29.0.jar
 ```
-<<<<<<< HEAD
-Lưu ý: Tham số -Xmx5g -XX:+UseG1GC cấu hình tùy thuộc vào tài nguyên sẵn 
-có
-- Bước 4: Restart lại ứng dụng.
-- Bước 5: Kiểm tra sau khi cài đặt.
-    - Chạy lệnh ""ps -ef | grep tomcat"" (Kiểm tra xem tiến trình tomcat vừa tác 
-động đã có tiến trình apm chưa).
-    - Truy cập dashboard ELK xem hệ thống đã được add lên chưa.
-    - Kiểm tra nghiệp vụ ứng dụng xem có lỗi không
-=======
 
 Note: The -Xmx5g -XX:+UseG1GC parameter is configurable depending on resource availability.
 
@@ -445,4 +381,3 @@ Note: The -Xmx5g -XX:+UseG1GC parameter is configurable depending on resource av
     - Check the application business for errors
 
 
->>>>>>> 272e1cd7901e17c672ba6e97b513b50dec2db03b
