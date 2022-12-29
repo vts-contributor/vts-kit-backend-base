@@ -10,12 +10,16 @@
         - [Attach digital signature to PDF file](#53-attach-digital-signature-to-pdf-file)
     - [Instructions for implementing cache on spring service](#6-instructions-for-implementing-cache-on-spring-service)
     - [Instructions for implementing outbox events](#7-instructions-for-implementing-outbox-events)
+    - [API Docs Swagger](#8-api-docs-swagger)
+    - [CICD Pipeline To Deploy To Kubernetes](/cicd/README.md)
 - [Addition feature](ii-addition-feature)
     - [Monitoring with APM](#1-elk-stack-system-integration-guide)
     - [Integration Mongo DB](https://github.com/vts-contributor/vts-kit-lib-mongo-data.git)
     - [Integration Keycloak Auth](https://github.com/vts-contributor/vts-kit-lib-keycloak-auth.git)
     - [Integration Elasticsearch](https://github.com/vts-contributor/vts-kit-lib-elasticsearch.git)
-    - [Integration Kong Ingress Controller](//https://github.com/vts-contributor/vts-kit-kong-ingress-controller.git)
+    - [Integration Kong Ingress Controller](https://github.com/vts-contributor/vts-kit-kong-ingress-controller.git)
+    - [Integration KPI Log](https://github.com/vts-contributor/vts-kit-lib-kpilog.git)
+    - [Integration Send Email,SMS](https://github.com/vts-contributor/vts-kit-lib-email-sms.git)
     - [Redis Caching](https://github.com/vts-contributor/vts-kit-ms-redis-cache.git)
 
 ## I. Built-in Feature
@@ -354,6 +358,12 @@ When receiving event, receiver will pass ApplicationEventPublisher to publishEve
        }
    }
    ```
+
+### 8. API Docs Swagger
+This Template Built-in supported Open API docs base on [Swagger OAS](https://swagger.io/specification/)
+
+API Docs Auto Generated at URL: `http://localhost:9999/v3/api-docs`\
+API Docs Swagger UI at URL: `http://localhost:9999/swagger-ui/index.html`
 ## II. Addition feature
 ### 1. ELK STACK system integration guide
 #### Install agent for java application, tomcat running on K8s
