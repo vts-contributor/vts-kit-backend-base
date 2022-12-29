@@ -6,15 +6,15 @@ metadata:
   name: {{appName}}-svc
   labels:
     app: {{appName}}
-  namespace: {{namespace}}
+  namespace: {{devNamespace}}
 spec:
   type: NodePort
   ports:
-    - port: {{port}}
-      name: port3
+    - port: {{devPort}}
+      name: {{appName}}-external-port
       protocol: TCP
-      targetPort: {{targetPort}}
-      nodePort: {{nodePort}}
+      targetPort: {{devTargetPort}}
+      nodePort: {{devNodePort}}
   selector:
     app: {{appName}}
 ---
@@ -25,7 +25,7 @@ metadata:
   name: {{appName}}-deployment
   labels:
     app: {{appName}}
-  namespace: {{namespace}}
+  namespace: {{devNamespace}}
 spec:
   replicas: 1
   selector:
@@ -38,9 +38,9 @@ spec:
     spec:
       containers:
         - name: {{appName}}-container
-          image: {{imageName}}:{{version}}
+          image: {{imageName}}
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: {{containerPort}}
+            - containerPort: {{devContainerPort}}
       imagePullSecrets:
-        - name: {{imagePullSecrets}}
+        - name: {{devImagePullSecrets}}
