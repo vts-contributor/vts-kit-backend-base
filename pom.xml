@@ -53,13 +53,6 @@
             <version>${springdoc-openapi-ui.version}</version>
         </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>maven-releases</id>
-            <name>Internal Releases</name>
-            <url>http://10.60.108.23:9001/repository/maven-releases/</url>
-        </repository>
-    </repositories>
     <build>
         <plugins>
             <plugin>

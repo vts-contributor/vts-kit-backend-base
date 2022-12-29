@@ -50,7 +50,7 @@ node("<NODE_SLAVE>"){
       jenkinsfile_bootstrap.bootstrap_build()
 }
 ```
-All config at jenkins server can be consulted at: `http://10.60.156.96:8080/job/VTS-KIT/job/vts-kit-start/configure`
+All config at jenkins server can be consulted at: `http://<JENKIN_SERVER>:8080/job/VTS-KIT/job/vts-kit-start/configure`
 
 #### Deploy Environments
 ```groovy
@@ -71,7 +71,7 @@ Find out more at: [dev-deploy-manifest.yaml](/cicd/manifests/dev-deploy-manifest
 #### Build Environments
 ```groovy
 // Image name, with prefix is url private repo
-// Example: 10.60.156.72/vbcs/cicidenv
+// Example: <HARBOR_SERVER>/vbcs/cicidenv
 env.imageName = "IMAGE NAME"
 // Secret harbor is a secret created on jenkins credential, it contains harbor login information
 env.secretHarbor = "SECRET"
@@ -86,7 +86,7 @@ env.credentialsId = "<CREDENTIAL>"
 env.email = "EMAIL GITLAB"
 env.name = "NAME"
 
-// Link goi API Sang Gitlab. Sua lai gia tri <project_id> tren Gitlab. VD: http://10.60.156.11/api/v4/projects/123456
+// Link goi API Sang Gitlab. Sua lai gia tri <project_id> tren Gitlab. VD: http://<GITLAB_SERVER>/api/v4/projects/123456
 env.GITLAB_PROJECT_API_URL="<URL>"
 // Node run job, ex: slave_43
 env.node_slave="<NODE>"
