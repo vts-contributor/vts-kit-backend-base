@@ -118,7 +118,7 @@ mvn install:install-file -Dfile=vts-kit-backend-core-1.0-RELEASE.jar -DgroupId=v
 File config.properties dùng để cấu hình gen code
 Cấu hình database để gen code, thay đổi thông tin database tương ứng cho ứng dụng đang code
    ```
-   spring.datasource.url=jdbc:oracle:thin:@10.60.157.9:1521:dbpt
+   spring.datasource.url=jdbc:oracle:thin:@<DB_SERVER>:1521:dbpt
    spring.datasource.username=app
    spring.datasource.password=app#123
    ```
