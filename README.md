@@ -29,7 +29,7 @@
 The file config.properties is used to configure the generate code \
 Configure the database to generate code, change the corresponding database information for the application that is coding.
 ```properties
-    spring.datasource.url=jdbc:oracle:thin:@10.60.157.9:1521:dbpt
+    spring.datasource.url=jdbc:oracle:thin:@<DB_SERVER>:1521:dbpt
     spring.datasource.username=app
     spring.datasource.password=app#123
 ```
