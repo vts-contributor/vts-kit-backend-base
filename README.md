@@ -12,15 +12,11 @@
     - [Instructions for implementing outbox events](#7-instructions-for-implementing-outbox-events)
 - [Addition feature](ii-addition-feature)
     - [Monitoring with APM](#1-elk-stack-system-integration-guide)
-    - [Integration Maria DB](https://github.com/vts-contributor/vts-kit-ms-maria-data.git)
     - [Integration Mongo DB](https://github.com/vts-contributor/vts-kit-lib-mongo-data.git)
-    - [Integration MinIO](https://github.com/vts-contributor/vts-kit-ms-minio-integrated.git)
     - [Integration Keycloak Auth](https://github.com/vts-contributor/vts-kit-lib-keycloak-auth.git)
-    - [Integration Kafka](https://github.com/vts-contributor/vts-kit-lib-kafka.git)
     - [Integration Elasticsearch](https://github.com/vts-contributor/vts-kit-lib-elasticsearch.git)
     - [Integration Kong Ingress Controller](//https://github.com/vts-contributor/vts-kit-kong-ingress-controller.git)
     - [Redis Caching](https://github.com/vts-contributor/vts-kit-ms-redis-cache.git)
-
 
 ## I. Built-in Feature
 
