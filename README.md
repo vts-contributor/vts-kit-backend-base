@@ -369,14 +369,14 @@ API Docs Swagger UI at URL: `http://localhost:9999/swagger-ui/index.html`
 #### Install agent for java application, tomcat running on K8s
 For systems running k8s: Need to rebuild image.
 - Step 1: Copy the file elastic-apm-agent-1.29.0.jar to the apm-agent folder in the project to rebuild the image.\
- Downloadable at: [Elastic-apm-agent-1.29.0](#http://10.254.144.164:8081/repository/maven-public/com/atviettelsolutions/vts-kit-elastic-apm-agent/1.29.0/vts-kit-elastic-apm-agent-1.29.0.jar)
+ Downloadable at: [Elastic-apm-agent-1.29.0](#http://SERVER_ELK:8081/repository/maven-public/com/atviettelsolutions/vts-kit-elastic-apm-agent/1.29.0/vts-kit-elastic-apm-agent-1.29.0.jar)
 - Step 2: Add the following command to the Dockerfile: COPY ./apm-agent /apm-agent
 - Step 3: Edit new image and add environment variable in k8s deployment
 
 ```yaml
 - name: _JAVA_OPTIONS
   value: -Xmx5g -XX:+UseG1GC -Delastic.apm.service_name=<service_name> -
-Delastic.apm.server_urls=http://10.254.145.240:8086/apm-server -javaagent:/apm-agent/elastic-apm-agent-1.29.0.jar
+Delastic.apm.server_urls=http://<ELK_SERVER>:8086/apm-server -javaagent:/apm-agent/elastic-apm-agent-1.29.0.jar
 ```
 
 Note: The -Xmx5g -XX:+UseG1GC parameter is configurable depending on resource availability.
