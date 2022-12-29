@@ -1,6 +1,6 @@
 # Getting Started
 CICD built into the backend base is based on corporate standards but with a slight improvement on the implementation part, 
-now the basic values of a project will be collectively configured in the file: [jenkinsfile_env.groovy](/cicd/jenkinsfile_env.groovy) .
+now the basic values of a project will be collectively configured in the file: [environment.groovy](/cicd/jenkinsfile/environment.groovy) .
 
 ### Structure
 ```
@@ -110,7 +110,7 @@ env.STAGING_IP="<IP>"
 env.STAGING_PORT="<PORT>"
 ```
 
-In addition, you can define a few more project-specific environment variables, see more at: [jenkinsfile_env.groovy](/cicd/jenkinsfile_env.groovy)
+In addition, you can define a few more project-specific environment variables, see more at: [environment.groovy](/cicd/jenkinsfile/environment.groovy)
 
 
 
