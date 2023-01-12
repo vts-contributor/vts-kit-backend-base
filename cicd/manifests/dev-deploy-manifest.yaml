@@ -39,6 +39,11 @@ spec:
       containers:
         - name: {{appName}}-container
           image: {{imageName}}
+          env:
+          - name: REDIS_PORT
+            value: "8379"
+          - name: REDIS_HOST
+            value: "10.60.156.125"
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: {{devContainerPort}}

@@ -2,6 +2,7 @@
 set -e
 
 echo "Start build maven"
+
 mvn -U clean install -Dmaven.test.skip=true
 echo "Finish build maven"
 

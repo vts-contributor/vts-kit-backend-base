@@ -10,7 +10,7 @@
     </parent>
     <groupId>vn.com.viettel</groupId>
     <artifactId>vts-kit-backend-base</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>vts-kit-backend-base</name>
     <description>VTS KIT BACKEND BASE</description>
     <properties>

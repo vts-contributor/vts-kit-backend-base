@@ -1,8 +1,6 @@
 import groovy.json.JsonOutput
 import groovy.util.XmlSlurper
 
-
-
 @SuppressWarnings("GrMethodMayBeStatic")
 @NonCPS
 def parseXml(xmlString) {
@@ -73,7 +71,7 @@ def checkoutSourceCode(checkoutType) {
 
 def getProject() {
     def current = ""
-    withCredentials([usernamePassword(credentialsId: 'a5eedd9f-332d-4575-9756-c358bbd808eb', usernameVariable: 'user',
+    withCredentials([usernamePassword(credentialsId: "${env.gitUserPassSecret}", usernameVariable: 'user',
             passwordVariable: 'password')]) {
         def gitlabUrl = sh(script: "echo ${env.gitlabSourceRepoHttpUrl} | cut -d/ -f1-3", returnStdout:true).trim()
 
@@ -94,6 +92,7 @@ def getProject() {
             }
         }
         return
+
     }
     if (current == "") {
         error "Unable to find project from gitlab API"
