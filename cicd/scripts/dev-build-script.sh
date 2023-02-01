@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 
+rm -rf /home/app/.m2/repository/com/atviettelsolutions/vts-kit-lib-minio/
 echo "Start build maven"
+
 mvn -U clean install -Dmaven.test.skip=true
 echo "Finish build maven"
 

@@ -10,27 +10,27 @@ env.appName = "" // Determine docker image name (<harborServer>/<harborFolder>/<
 // Development environment
 env.devKubeConfigFileSecret = ""
 env.devNamespace = ""
-env.devPort = ""
-env.devTargetPort = ""
+env.devPort = "8080"
+env.devTargetPort = "8080"
 env.devNodePort = ""
-env.devContainerPort = ""
+env.devContainerPort = "8080"
 env.devImagePullSecrets = ""
 // Production environment
 env.prodKubeConfigFileSecret = ""
 env.prodNamespace = ""
 env.prodPort = ""
-env.prodTargetPort = ""
-env.prodNodePort = ""
-env.prodContainerPort = ""
+env.prodTargetPort = "8080"
+env.prodNodePort = "8780"
+env.prodContainerPort = "8080"
 env.prodImagePullSecrets = ""
 
 // Docker harbor configuration
+
 env.harborUserPassSecret = ""
 env.harborServer = ""
-env.harborFolder = ""
+env.harborFolder = "vbcs"
 
 // Git information
-env.gitlabServer= ""
 env.gitUserPassSecret = ""
 env.stagingBranch = ""
 

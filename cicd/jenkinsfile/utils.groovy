@@ -1,8 +1,6 @@
 import groovy.json.JsonOutput
 import groovy.util.XmlSlurper
 
-
-
 @SuppressWarnings("GrMethodMayBeStatic")
 @NonCPS
 def parseXml(xmlString) {
@@ -26,46 +24,46 @@ def checkoutSourceCode(checkoutType) {
     if (checkoutType == "PUSH") {
         echo "Credentials by: [${env.gitUserPassSecret}]"
         checkout changelog: true, poll: true, scm: [
-                $class: 'GitSCM',
-                branches: [
-                        [name: "${env.gitlabAfter}"]
-                ],
-                doGenerateSubmoduleConfigurations: false,
-                extensions: [
-                        [$class: 'CleanBeforeCheckout']
-                ],
-                submoduleCfg: [],
-                userRemoteConfigs: [
-                        [credentialsId: "${env.gitUserPassSecret}",
-                         url: "${env.gitlabSourceRepoHomepage}" + ".git"
-                        ]
+            $class: 'GitSCM',
+            branches: [
+                [name: "${env.gitlabAfter}"]
+            ],
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [
+                [$class: 'CleanBeforeCheckout']
+            ],
+            submoduleCfg: [],
+            userRemoteConfigs: [
+                [credentialsId: "${env.gitUserPassSecret}",
+                    url: "${env.gitlabSourceRepoHomepage}" + ".git"
                 ]
+            ]
 
         ]
     } else if (checkoutType == "MERGE") {
         checkout changelog: true, poll: true, scm: [
-                $class: 'GitSCM',
-                branches: [
-                        [name: "origin/${env.gitlabSourceBranch}"]
+            $class: 'GitSCM',
+            branches: [
+                [name: "origin/${env.gitlabSourceBranch}"]
+            ],
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [
+                [$class: 'PreBuildMerge',
+                    options: [
+                        fastForwardMode: 'FF',
+                        mergeRemote: 'origin',
+                        mergeStrategy: 'RESOLVE',
+                        mergeTarget: "${env.gitlabTargetBranch}"
+                    ]
                 ],
-                doGenerateSubmoduleConfigurations: false,
-                extensions: [
-                        [$class: 'PreBuildMerge',
-                         options: [
-                                 fastForwardMode: 'FF',
-                                 mergeRemote: 'origin',
-                                 mergeStrategy: 'RESOLVE',
-                                 mergeTarget: "${env.gitlabTargetBranch}"
-                         ]
-                        ],
-                        [$class: 'CleanBeforeCheckout']
-                ],
-                submoduleCfg: [],
-                userRemoteConfigs: [
-                        [credentialsId: "${env.gitUserPassSecret}",
-                         url: "${env.gitlabSourceRepoHomepage}" + ".git"
-                        ]
+                [$class: 'CleanBeforeCheckout']
+            ],
+            submoduleCfg: [],
+            userRemoteConfigs: [
+                [credentialsId: "${env.gitUserPassSecret}",
+                    url: "${env.gitlabSourceRepoHomepage}" + ".git"
                 ]
+            ]
         ]
     }
 }
@@ -73,18 +71,16 @@ def checkoutSourceCode(checkoutType) {
 
 def getProject() {
     def current = ""
-    withCredentials([usernamePassword(credentialsId: 'a5eedd9f-332d-4575-9756-c358bbd808eb', usernameVariable: 'user',
-            passwordVariable: 'password')]) {
-        def gitlabUrl = sh(script: "echo ${env.gitlabSourceRepoHttpUrl} | cut -d/ -f1-3", returnStdout:true).trim()
-
+    withCredentials([usernamePassword(credentialsId: "${env.gitUserPassSecret}", usernameVariable: 'username',
+        passwordVariable: 'password')]) {
         def response = httpRequest([
-                acceptType: 'APPLICATION_JSON',
-                httpMode: 'GET',
-                contentType: 'APPLICATION_JSON',
-                customHeaders: [
-                        [name: 'Private-Token', value: password]
-                ],
-                url: "${gitlabUrl}/api/v4/projects?search=${env.gitlabSourceRepoName}"
+            acceptType: 'APPLICATION_JSON',
+            httpMode: 'GET',
+            contentType: 'APPLICATION_JSON',
+            customHeaders: [
+                [name: 'Private-Token', value: password]
+            ],
+            url: "${env.gitlabUrl}/api/v4/projects?search=${env.gitlabSourceRepoName}"
         ])
         def projects = jenkinsfile_utils.jsonParse(response.content)
         for (project in projects) {
@@ -105,19 +101,19 @@ def getProject() {
 def getProjectMember(notifyMemberLevel) {
     def project_members = []
     def project_member_notify = []
-    withCredentials([usernamePassword(credentialsId: 'a5eedd9f-332d-4575-9756-c358bbd808eb', usernameVariable: 'user',
-            passwordVariable: 'password')]) {
+    withCredentials([usernamePassword(credentialsId: "${env.gitUserPassSecret}", usernameVariable: 'username',
+        passwordVariable: 'password')]) {
         def currentPage = 1
         haveNextPage = true
         while (haveNextPage) {
             def response = httpRequest([
-                    acceptType: 'APPLICATION_JSON',
-                    httpMode: 'GET',
-                    contentType: 'APPLICATION_JSON',
-                    customHeaders: [
-                            [name: 'Private-Token', value: password]
-                    ],
-                    url: "${env.gitProjectApiUrl}/members/all?per_page=100&page=${currentPage}"
+                acceptType: 'APPLICATION_JSON',
+                httpMode: 'GET',
+                contentType: 'APPLICATION_JSON',
+                customHeaders: [
+                    [name: 'Private-Token', value: password]
+                ],
+                url: "${env.gitProjectApiUrl}/members/all?per_page=100&page=${currentPage}"
             ])
 
             def project_members_resp = jenkinsfile_utils.jsonParse(response.content)
@@ -157,15 +153,15 @@ def checkModuleIsService(String moduleName, notServiceModuleList) {
             isService = false
         }
     }
-    echo "is service: ${isService}"
+    echo "Is service: ${isService}"
     return isService
 }
 
 return [
-        parseXml: this.&parseXml,
-        jsonParse: this.&jsonParse,
-        toJSONString: this.&toJSONString,
-        checkoutSourceCode: this.&checkoutSourceCode,
-        getProjectMember: this.&getProjectMember,
-        getProject: this.&getProject
+    parseXml: this.&parseXml,
+    jsonParse: this.&jsonParse,
+    toJSONString: this.&toJSONString,
+    checkoutSourceCode: this.&checkoutSourceCode,
+    getProjectMember: this.&getProjectMember,
+    getProject: this.&getProject
 ]
