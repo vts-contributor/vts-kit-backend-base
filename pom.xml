@@ -53,7 +53,10 @@
             <version>${springdoc-openapi-ui.version}</version>
         </dependency>
     </dependencies>
+<<<<<<< HEAD
+=======
 
+>>>>>>> dc54cf694d9748bb93a4ea02f3480138e18cbcec
     <build>
         <plugins>
             <plugin>

@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: kong-ingress
+  namespace: <NAMESPACE>
+  annotations:
+    konghq.com/plugins: rate-limiting-example
+    konghq.com/strip-path: "true"
+spec:
+  ingressClassName: kong
+  rules:
+    - http:
+        paths:
+          - path: /vts
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: <SERVICENAME>
+              servicePort: 8080

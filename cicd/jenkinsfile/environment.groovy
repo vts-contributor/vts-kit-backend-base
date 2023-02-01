@@ -19,22 +19,23 @@ env.devImagePullSecrets = "phuhk-secret"
 env.prodKubeConfigFileSecret = ""
 env.prodNamespace = ""
 env.prodPort = ""
-env.prodTargetPort = "8080"
-env.prodNodePort = "8780"
-env.prodContainerPort = "8080"
-env.prodImagePullSecrets = "phuhk-secret"
+env.prodTargetPort = ""
+env.prodNodePort = ""
+env.prodContainerPort = ""
+env.prodImagePullSecrets = ""
 
 // Docker harbor configuration
-env.harborUserPassSecret = "secrets-harbor"
-env.harborServer = "10.60.156.72"
-env.harborFolder = "vbcs"
+env.harborUserPassSecret = ""
+env.harborServer = ""
+env.harborFolder = ""
 
 // Git information
-env.gitUserPassSecret = "datnv36-vts"
+env.gitlabServer= ""
+env.gitUserPassSecret = ""
 env.stagingBranch = ""
 
 // Report config
-env.mailTo = "datnv36@viettel.com.vn"
+env.mailTo = ""
 env.mailCC = ""
 
 // Sonar config

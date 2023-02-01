@@ -29,7 +29,11 @@
 The file config.properties is used to configure the generate code \
 Configure the database to generate code, change the corresponding database information for the application that is coding.
 ```properties
+<<<<<<< HEAD
     spring.datasource.url=jdbc:oracle:thin:@<DB_SERVER>:1521:dbpt
+=======
+    spring.datasource.url=jdbc:oracle:thin:@<YOUR_DB_URL>:dbpt
+>>>>>>> 3cd3444744fd173c381b02e54f43a73f6b8fe184
     spring.datasource.username=app
     spring.datasource.password=app#123
 ```
@@ -369,7 +373,11 @@ API Docs Swagger UI at URL: `http://localhost:9999/swagger-ui/index.html`
 #### Install agent for java application, tomcat running on K8s
 For systems running k8s: Need to rebuild image.
 - Step 1: Copy the file elastic-apm-agent-1.29.0.jar to the apm-agent folder in the project to rebuild the image.\
+<<<<<<< HEAD
  Downloadable at: [Elastic-apm-agent-1.29.0](#http://SERVER_ELK:8081/repository/maven-public/com/atviettelsolutions/vts-kit-elastic-apm-agent/1.29.0/vts-kit-elastic-apm-agent-1.29.0.jar)
+=======
+ Downloadable at: [Elastic-apm-agent-1.29.0](#http://<NEXUS-SERVER>:8081/repository/maven-public/com/atviettelsolutions/vts-kit-elastic-apm-agent/1.29.0/vts-kit-elastic-apm-agent-1.29.0.jar)
+>>>>>>> 3cd3444744fd173c381b02e54f43a73f6b8fe184
 - Step 2: Add the following command to the Dockerfile: COPY ./apm-agent /apm-agent
 - Step 3: Edit new image and add environment variable in k8s deployment
 
