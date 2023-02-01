@@ -4,17 +4,17 @@ env.skipTest = ''
 env.skipSonar = ''
 
 // Application information
-env.appName = "vts-kit-example" // Determine docker image name (<harborServer>/<harborFolder>/<appName>:<version>_<buildNumber>)
+env.appName = "" // Determine docker image name (<harborServer>/<harborFolder>/<appName>:<version>_<buildNumber>)
 
 // Kubernetes profile (All required))
 // Development environment
-env.devKubeConfigFileSecret = "dev-vts-kit-k8s-config"
+env.devKubeConfigFileSecret = ""
 env.devNamespace = "vts-kit"
 env.devPort = "8080"
 env.devTargetPort = "8080"
 env.devNodePort = "9402"
 env.devContainerPort = "8080"
-env.devImagePullSecrets = "phuhk-secret"
+env.devImagePullSecrets = ""
 // Production environment
 env.prodKubeConfigFileSecret = ""
 env.prodNamespace = ""
