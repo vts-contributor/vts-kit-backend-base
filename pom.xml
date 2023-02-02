@@ -17,6 +17,7 @@
         <!-- <vts-kit-backend-core-keycloak.version>1.0-RELEASE</vts-kit-backend-core-keycloak.version>-->
         <vts-kit-backend-core.version>1.1-RELEASE</vts-kit-backend-core.version>
         <vts-kit-backend-gencode.version>1.0-RELEASE</vts-kit-backend-gencode.version>
+        <vts-kit-backend-core-jpa.version>1.1-RELEASE</vts-kit-backend-core-jpa.version>
         <springdoc-openapi-ui.version>1.6.8</springdoc-openapi-ui.version>
     </properties>
     <dependencies>
@@ -35,6 +36,12 @@
             <groupId>vn.com.viettel.core</groupId>
             <artifactId>vts-kit-backend-core</artifactId>
             <version>${vts-kit-backend-core.version}</version>
+        </dependency>
+        <!-- Neu khong su dung DB thi xoa lib nay-->
+        <dependency>
+            <groupId>vn.com.viettel.core</groupId>
+            <artifactId>vts-kit-backend-core-jpa</artifactId>
+            <version>${vts-kit-backend-core-jpa.version}</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.janino</groupId>
