@@ -20,6 +20,7 @@
     - [Integration Kong Ingress Controller](https://github.com/vts-contributor/vts-kit-kong-ingress-controller.git)
     - [Integration KPI Log](https://github.com/vts-contributor/vts-kit-lib-kpilog.git)
     - [Integration Send Email,SMS](https://github.com/vts-contributor/vts-kit-lib-email-sms.git)
+    - [Integration Minio](https://github.com/vts-contributor/vts-kit-lib-minio.git)
     - [Redis Caching](https://github.com/vts-contributor/vts-kit-ms-redis-cache.git)
 
 ## I. Built-in Feature
@@ -34,8 +35,9 @@ Configure the database to generate code, change the corresponding database infor
     spring.datasource.password=app#123
 ```
 Configure the generated code directory path
+
 ```properties
-    src.url.create.code
+    src.url.create.code=
 ```
 Define class and methods to generate in file template.json
 ```
@@ -50,6 +52,7 @@ listMethod: List of Methods in the class to create
     "params": Declare the parameters passed in from the client,
     "jpa": Configure = true so that gen according to JPA will generate gen according to SQL Native command (Note that simple sql must use gen according to JPA)
 ```
+
 Example
 ```json
 {
@@ -68,7 +71,9 @@ Example
        }
    ]
 }
+
 ```
+Note: Please make sure that the database and the columes you define in this config file have been initialized first.\
 Execute generate code:
 ```
 Run main function in file MainGenCode
