@@ -1,6 +1,5 @@
 def getAppVersion(deployVersion) {
-    def projectVersion = readMavenPom([file: "pom.xml"]).getVersion()
-    def version = "${projectVersion}_u${BUILD_NUMBER}.stable"
+    def version = "${deployVersion}.stable"
 	def imageName = "${env.harborServer}/${env.harborFolder}/${env.appName}:${version}"
 	return imageName
 }
@@ -28,7 +27,7 @@ def deployToProduction() {
     stage("Wait for maintainer accept or reject to deploy to production") {
         try {
             deployer = env.projectMaintainerList
-            echo "projectMaintainerList: ${env.projectMaintainerList}"
+            echo "Project Maintainers: ${env.projectMaintainerList}"
 
             timeout(time: 24, unit: 'HOURS') {
                 deployInput = input(

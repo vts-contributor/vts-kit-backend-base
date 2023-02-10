@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: kong-ingress
@@ -14,5 +14,7 @@ spec:
           - path: /vts
             pathType: ImplementationSpecific
             backend:
-              serviceName: <SERVICENAME>
-              servicePort: 8080
+              service:
+                name: <SERVICENAME>
+                port:
+                  number: 8080
