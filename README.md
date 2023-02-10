@@ -21,6 +21,7 @@
     - [Integration KPI Log](https://github.com/vts-contributor/vts-kit-lib-kpilog.git)
     - [Integration Send Email,SMS](https://github.com/vts-contributor/vts-kit-lib-email-sms.git)
     - [Integration Minio](https://github.com/vts-contributor/vts-kit-lib-minio.git)
+    - [Integration Push Notification](https://github.com/vts-contributor/vts-kit-lib-firebase-notification.git)
     - [Redis Caching](https://github.com/vts-contributor/vts-kit-ms-redis-cache.git)
 
 ## I. Built-in Feature
