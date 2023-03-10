@@ -1,18 +1,18 @@
 #!/bin/bash
 set -e
 
-rm -rf /home/app/.m2/repository/com/atviettelsolutions/vts-kit-lib-minio/
+forderHarbor=$1
+nameProject=$2
+
 echo "Start build maven"
 
 mvn -U clean install -Dmaven.test.skip=true
 echo "Finish build maven"
 
 echo "Start build docker"
-docker build -f cicd/configs/Dockerfile -t "$imageName" .
+echo "IMAGE NAME" ${forderHarbor}/${nameProject}:latest
+docker build -f cicd/configs/Dockerfile -t ${forderHarbor}/${nameProject}:latest .
 echo "Finish build docker"
 
-echo "Push image to registry server"
-docker push "$imageName"
-docker rmi "$imageName"
-echo "Finish push image to registry server"
+
 

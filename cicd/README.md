@@ -10,11 +10,8 @@ now the basic values of a project will be collectively configured in the file: [
     │   ├── configs/
     │   │   └── Dockerfile
     │   ├── jenkinsfile/
-    │   │   ├── CD.groovy
-    │   │   ├── CI.groovy
-    │   │   ├── bootstrap.groovy
     │   │   ├── environment.groovy
-    │   │   └── ultis.groovy 
+    │   │   └── Jenkinsfile.groovy 
     │   ├── manifests/
     │   │   ├── prod-deploy-manifest.yaml
     │   │   └── dev-deploy-manifest.yaml
@@ -35,6 +32,7 @@ but with some particularly important information it can be defined in the config
 Due to the limitation of the GitLab plugin, it is necessary to set up a preprocessor script to get the Jenkinsfile containing the event handling script. This preprocessor script is in the Pipeline Script section of the job's configuration. For example, the following preprocessor script takes the Jenkinsfile of the merge request and executes the processes defined in the Jenkinsfile:
 This is the reference section. Suggest to use initscript with parameter.
 ```groovy
+@Library('jenkins-shared-lib')_
 node("<NODE_SLAVE>"){
       checkout changelog: true, poll: true, scm: [
               $class                           : 'GitSCM',
@@ -46,8 +44,9 @@ node("<NODE_SLAVE>"){
                                                    name         : 'origin',
                                                    url          : "${env.gitlabSourceRepoHomepage}" + ".git"]]
       ]
-      jenkinsfile_bootstrap = load 'cicd/jenkinsfile/bootstrap.groovy'
-      jenkinsfile_bootstrap.bootstrap_build()
+    jenkinsfile = load 'cicd/jenkinsfile/Jenkinsfile.groovy'
+    jenkinsfile_bootstrap.setJenkinsfile(jenkinsfile)
+    jenkinsfile_bootstrap.bootstrap_build()
 }
 ```
 All config at jenkins server can be consulted at: `http://<JENKIN_SERVER>:8080/job/VTS-KIT/job/vts-kit-start/configure`
@@ -70,11 +69,9 @@ env.imagePullSecrets = "<IMAGE PULL SECRET>"
 Find out more at: [dev-deploy-manifest.yaml](/cicd/manifests/dev-deploy-manifest.yaml)
 #### Build Environments
 ```groovy
-// Image name, with prefix is url private repo
-// Example: <HARBOR_SERVER>/vbcs/cicidenv
-env.imageName = "IMAGE NAME"
-// Secret harbor is a secret created on jenkins credential, it contains harbor login information
-env.secretHarbor = "SECRET"
+// Habor forder, and server, image build with format <harborSV>/<harhorFodler>/<name>:<tag>
+env.harborServer = ""
+env.harborProject = ""
 ```
 #### Jenkins Environments
 ```groovy
@@ -82,25 +79,19 @@ env.secretHarbor = "SECRET"
 env.mailTo= "<EMAIL>"
 env.mailCC = "<EMAIL>"
 // Credentials gitlab identification and authentication
-env.credentialsId = "<CREDENTIAL>"
-env.email = "EMAIL GITLAB"
-env.name = "NAME"
-
 // Link goi API Sang Gitlab. Sua lai gia tri <project_id> tren Gitlab. VD: http://<GITLAB_SERVER>/api/v4/projects/123456
-env.GITLAB_PROJECT_API_URL="<URL>"
+env.GITLAB_TOKEN_CREDENTIALS=""
+env.GITLAB_PROJECT_API_URL="" // example http://<serverGitLab>/api/v4/projects/4794
 // Node run job, ex: slave_43
 env.node_slave="<NODE>"
 ```
 #### Test Environments
 Environment values for test sona, unit, perfomance, set empty if want to skip.
 ```groovy
-env.project_maintainer_list = 'test'
-//example env.jobAutoTestStaging = 'Auto_RnD/job/katalon_autoweb_VBP'
-env.jobAutoTestStaging = ""
-//example env.jobAutoSecurity = "VBCS-CICD-FOLDER/vbcs-automation-testing-security"
-env.jobAutoSecurity = ""
-//example env.jobAutoPerform = "AUTO_PERFORMANCE_STAGING/job/autoperf_VBS"
-env.jobAutoPerform = ""
+env.maximumAllowedBugs = 0
+env.maximumAllowedVunerabilities = 0
+env.maximumAllowedCodeSmell = 0
+env.flag_sonar = ""
 ```
 #### Results Environments
 ```groovy
