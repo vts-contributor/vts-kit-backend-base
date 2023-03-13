@@ -69,7 +69,7 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>dependency-counter</goal>
+                            <goal>vts-plugin</goal>
                         </goals>
                     </execution>
                 </executions>
