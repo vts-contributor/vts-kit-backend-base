@@ -6,33 +6,101 @@ import groovy.transform.Field
 @Field def useArtifact = false
 @Field def isBackend = true
 
+// ------------------------------------ VTS KIT ----------------------------------------
 
-load 'cicd/jenkinsfile/environment.groovy'
+def initVTSKit() {
+    // Load local environment
+    try {
+        echo 'Load local environment: Loading'
+        load 'cicd/jenkinsfile/environment.groovy'
+        echo 'Load local environment: Success'
 
+        // Load remote environment
+        if (env.remoteConfigFile != null && env.remoteConfigFile != '') {
+            try {
+                echo 'Load remote environment: Loading'
+                configFileProvider([configFile(fileId: "${env.remoteConfigFile}", targetLocation: 'cicd/')]) {
+                    load "cicd/${env.remoteConfigFile}"
+                    echo 'Load remote environment: Loaded'
+                }
+            } catch (IOException e) {
+                echo 'Load remote environment: Error'
+            }
+            catch (FileNotFoundException  e) {
+                echo 'Load remote environment: Error'
+            }
+
+        }
+    } catch (IOException e) {
+        echo 'Load local environment: Error'
+    }catch (FileNotFoundException  e) {
+        echo 'Load remote environment: Error'
+    }
+
+    // Extra project environments
+    env.gitlabUrl = sh(script: "echo ${env.gitlabSourceRepoHttpUrl} | cut -d/ -f1-3", returnStdout:true).trim()
+
+    def project = getProject()
+    env.gitProjectApiUrl= "${env.gitlabUrl}/api/v4/projects/${project.id}"
+
+    // Compability fix
+    env.GITLAB_TOKEN_CREDENTIALS = env.gitTokenSecret
+    env.GITLAB_PROJECT_API_URL = env.gitProjectApiUrl
+    env.MAXIMUM_ALLOWED_BUGS = env.maximumAllowedBugs
+    env.MAXIMUM_ALLOWED_VUNERABILITIES = env.maximumAllowedVunerabilities
+    env.MAXIMUM_ALLOWED_CODE_SMELL = env.maximumAllowedCodeSmell
+    env.PUSH_BUILD_PREFIX = env.pushBuildPrefix
+    env.MR_BUILD_PREFIX = env.mrBuildPrefix
+    env.ACCEPT_CLOSE_MR_BUILD_PREFIX = env.acceptCloseMRBuildPrefix
+
+    // Dump environments //
+    echo 'Environments:'
+    sh 'env'
+}
+
+def getProject() {
+    def current = ""
+    withCredentials([string(credentialsId: "${env.gitTokenSecret}", variable: 'token')]) {
+        def response = httpRequest([
+                acceptType: 'APPLICATION_JSON',
+                httpMode: 'GET',
+                contentType: 'APPLICATION_JSON',
+                customHeaders: [
+                        [name: 'Private-Token', value: token]
+                ],
+                url: "${env.gitlabUrl}/api/v4/projects?search=${env.gitlabSourceRepoName}"
+        ])
+        def projects = jenkinsfile_utils.jsonParse(response.content)
+        for (project in projects) {
+            if (project['web_url'] == env.gitlabSourceRepoHomepage) {
+                current = project
+                return
+            }
+        }
+        return
+    }
+    if (current == "") {
+        error "Unable to find project from gitlab API"
+    } else {
+        return current
+    }
+}
+
+
+// ------------------------------------ PRE DEFINED -------------------------------------
 // WARNING! DO NOT MODIFY NAME/PARAMS OF ORIGINAL FUNCTIONS
+
 def getServiceList(){
     def listService = []
     return listService
 }
-//
-//server test prefix is: test_
-def getImageName() {
-    def version = "test_${BUILD_NUMBER}"
-	def imageName = "${env.harborServer}/${env.harborProject}/${env.appName}:${version}"
-	return imageName
-
-}
 
 def buildService() {
-     stage('Build service') {
+    stage('Build service') {
         env.buildWorkspace = sh(returnStdout: true, script: 'pwd').trim()
-        try {
-            sh """
-		        sh cicd/scripts/dev-build-script.sh ${env.harborProject} ${env.appName}
-            """
-        } catch (err) {
-            error 'Build Failure'
-        }
+        sh """
+            sh cicd/scripts/dev-build-script.sh
+        """
     }
 }
 
@@ -88,70 +156,90 @@ def unitTestAndCodeCoverage(buildType){
 
 }
 
-def deployDevTest(version){
-    echo  'Run deploy script'
-	env.imageName = getImageName()
-	withCredentials([file(credentialsId: "${env.devKubeConfigFileSecret}", variable: 'kubeconfig')]){
-		sh """
+def deployDevTest(version) {
+    echo "Deploy to development server"
+    echo "Version to deploy: $version"
+    env.imageName = "${env.imageRegistry}/${env.harborProject}/${env.appName}:${version}"
+    withCredentials([file(credentialsId: "${env.devKubeConfigFileSecret}", variable: 'kubeconfig')]){
+        sh """
 			sh cicd/scripts/dev-deploy-script.sh $kubeconfig
 		"""
-	}
-
+    }
 }
 
-def deployProduct(service,version){
-    echo "Deploy to server production"
+def deployProduct(service,version) {
+    echo "Deploy to production server"
     echo "Version to deploy: $version"
-    sh """
-        echo "Run deploy script here"
-    """
+    env.imageName = "${env.imageRegistry}/${env.harborProject}/${env.appName}:${version}"
+    withCredentials([file(credentialsId: "${env.prodKubeConfigFileSecret}", variable: 'kubeconfig')]){
+        sh """
+			sh cicd/scripts/prod-deploy-script.sh $kubeconfig
+		"""
+    }
 }
+
 
 def fortifyScan(){
     jenkinsfile_utils.fortifyScanStage(
-        [
-            serviceName : "${env.appName}",
-            sourcePathRegex : '\\src\\main\\java\\*'
-        ]
+            [
+                    serviceName : "${env.appName}",
+                    sourcePathRegex : '\\src\\main\\java\\*'
+            ]
     )
 }
 
 
 def pushImage(){
     jenkinsfile_utils.pushImageToHarbor(
-        [
-            repo_name : "${env.harborProject}",
-            image_name : "${env.appName}"
-        ]
+            [
+                    repo_name : "${env.harborProject}",
+                    image_name : "${env.appName}"
+            ]
     )
 }
 
 def pushArtifact(){
     jenkinsfile_utils.pushArtifactToNexus(
-        [
-            groupID     : "com.viettel",
-            artifactId  : "process",
-            filepath    : "/"
-        ]
+            [
+                    groupID     : "com.viettel",
+                    artifactId  : "process",
+                    filepath    : "/"
+            ]
     )
 }
 
-def selfCheckService(){
+def selfCheckService() {
+    echo "Not implemented selfCheckService()"
     return true
 }
 
-def rollback(){
-    echo "Define rollback plan here"
+def rollback() {
+    echo "Not implemented rollback()"
     return true
 }
 
-def autotestProduct(){
+def autotestProduct() {
+    echo "Not implemented autotestProduct()"
     return true
 }
+
 
 
 
 // ------------------------------------ Self-defined functions ------------------------------------
-
+//def checkoutDeployment(){
+//    checkout changelog: true, poll: true, scm: [
+//        $class                           :  'GitSCM',
+//        branches                         : [[name: "master"]],
+//        doGenerateSubmoduleConfigurations: false,
+//        extensions                       : [[$class: 'UserIdentity',
+//                                            email : 'vtsjenkinsadmin@viettel.com.vn', name: 'cicdBot'],
+//                                            [$class: 'CleanBeforeCheckout']],
+//        submoduleCfg                     : [],
+//        userRemoteConfigs                : [[credentialsId: "${env.gitUserPassSecret}",
+//                                             name         : 'origin',
+//                                             url          : "${env.gitlabSourceRepoHomepage}" + ".git"]]
+//    ]
+//}
 
 return this

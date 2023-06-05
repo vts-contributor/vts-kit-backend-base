@@ -45,6 +45,7 @@ node("<NODE_SLAVE>"){
                                                    url          : "${env.gitlabSourceRepoHomepage}" + ".git"]]
       ]
     jenkinsfile = load 'cicd/jenkinsfile/Jenkinsfile.groovy'
+    jenkinsfile.initVTSKit()
     jenkinsfile_bootstrap.setJenkinsfile(jenkinsfile)
     jenkinsfile_bootstrap.bootstrap_build()
 }
